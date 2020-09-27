@@ -53,6 +53,7 @@ public abstract class EntitySpaceshipBase extends Entity implements IPacketRecei
     }
 
     public int launchPhase;
+
     protected long ticks = 0;
     protected double dragAir;
     public int timeUntilLaunch;
@@ -116,7 +117,7 @@ public abstract class EntitySpaceshipBase extends Entity implements IPacketRecei
         {
 			boolean flag = par1DamageSource.getEntity() instanceof EntityPlayer && ((EntityPlayer)par1DamageSource.getEntity()).capabilities.isCreativeMode;
         	Entity e = par1DamageSource.getEntity(); 
-            if (this.isEntityInvulnerable() || this.posY > 255 || (!(e instanceof EntityPlayer)))
+            if (this.isEntityInvulnerable() || this.posY > 300 || (e instanceof EntityLivingBase && !(e instanceof EntityPlayer)))
             {
                 return false;
             }
@@ -213,18 +214,18 @@ public abstract class EntitySpaceshipBase extends Entity implements IPacketRecei
 
         if (this.addToTelemetry)
         {
-            this.addToTelemetry = false;
-            for (BlockVec3Dim vec : new ArrayList<BlockVec3Dim>(this.telemetryList))
-            {
-                TileEntity t1 = vec.getTileEntityNoLoad();
-                if (t1 instanceof TileEntityTelemetry && !t1.isInvalid())
-                {
-                    if (((TileEntityTelemetry)t1).linkedEntity == this)
-                        ((TileEntityTelemetry)t1).addTrackedEntity(this);
-                }
-            }
+        	this.addToTelemetry = false;
+			for (BlockVec3Dim vec : new ArrayList<BlockVec3Dim>(this.telemetryList))
+			{
+				TileEntity t1 = vec.getTileEntityNoLoad();
+				if (t1 instanceof TileEntityTelemetry && !t1.isInvalid())
+				{
+					if (((TileEntityTelemetry)t1).linkedEntity == this)
+						((TileEntityTelemetry)t1).addTrackedEntity(this);
+				}		
+			}
         }
-
+        
         if (this.riddenByEntity != null)
         {
             this.riddenByEntity.fallDistance = 0.0F;
@@ -249,30 +250,31 @@ public abstract class EntitySpaceshipBase extends Entity implements IPacketRecei
 
         if (!this.worldObj.isRemote)
         {
-            if (this.posY < 0.0D)
-            {
-                this.kill();
-            }
-            else if (this.posY > (this.worldObj.provider instanceof IExitHeight ? ((IExitHeight) this.worldObj.provider).getYCoordinateToTeleport() : 1200) + 100)
-            {
-                if (this.riddenByEntity instanceof EntityPlayerMP)
-                {
-                    GCPlayerStats stats = GCPlayerStats.get((EntityPlayerMP) this.riddenByEntity);
-                    if (stats.usingPlanetSelectionGui)
-                    {
-                        this.kill();
-                    }
-                }
-                else
-                    this.kill();
-            }
+	        if (this.posY < 0.0D)
+	        {
+	            this.kill();
+	        }
+	        else
+	        if (this.posY > (this.worldObj.provider instanceof IExitHeight ? ((IExitHeight) this.worldObj.provider).getYCoordinateToTeleport() : 1200) + 100)
+	        {
+	        	if (this.riddenByEntity instanceof EntityPlayerMP)
+	        	{
+	        		GCPlayerStats stats = GCPlayerStats.get((EntityPlayerMP) this.riddenByEntity);
+	        		if (stats.usingPlanetSelectionGui)
+	        		{
+	        			this.kill();
+	        		}
+	        	}
+	        	else
+	        		this.kill();
+	        }
 
-            if (this.timeSinceLaunch > 50 && this.onGround)
-            {
-                this.failRocket();
-            }
+	        if (this.timeSinceLaunch > 50 && this.onGround)
+	        {
+	            this.failRocket();
+	        }
         }
-
+        
         if (this.launchPhase == EnumLaunchPhase.UNIGNITED.ordinal())
         {
             this.timeUntilLaunch = this.getPreLaunchWait();

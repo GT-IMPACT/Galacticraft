@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.inventory;
 
+import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -7,6 +8,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -16,69 +18,53 @@ public class ContainerBuggyBench extends Container
     public IInventory craftResult = new InventoryCraftResult();
     private final World worldObj;
 
-    public ContainerBuggyBench(InventoryPlayer inventory, int x, int y, int z)
+    public ContainerBuggyBench(InventoryPlayer par1InventoryPlayer, int x, int y, int z)
     {
-        this.worldObj = inventory.player.worldObj;
+        final int change = 27;
+        this.worldObj = par1InventoryPlayer.player.worldObj;
+        this.addSlotToContainer(new SlotRocketBenchResult(par1InventoryPlayer.player, this.craftMatrix, this.craftResult, 0, 142, 79 + change));
+        int var6;
+        int var7;
 
-        //OUTPUT
-        addSlotToContainer(new SlotRocketBenchResult(inventory.player, craftMatrix, craftResult, 0, 143, 64));
-
-        //BUGGY
-        //gear
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 1, 62, 19, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 2, 62, 55, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 3, 62, 73, x, y, z, inventory.player));
-        //wheels
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 4, 8, 19, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 5, 116, 19, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 6, 8, 109, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 7, 116, 109, x, y, z, inventory.player));
-        //rods
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 8, 26, 19, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 9, 98, 19, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 10, 26, 109, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 11, 98, 109, x, y, z, inventory.player));
-        //plates
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 12, 44, 19, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 13, 80, 19, x, y, z, inventory.player));
-        for(int i = 0; i < 3; i++) {
-            addSlotToContainer(new SlotBuggyBench(craftMatrix, 14 + i, 44 + i * 18, 109, x, y, z, inventory.player));
-        }
-        //screws
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 17, 8, 37, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 18, 26, 37, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 19, 98, 37, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 20, 116, 37, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 21, 8, 91, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 22, 26, 91, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 23, 98, 91, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 24, 116, 91, x, y, z, inventory.player));
-        //body
-        for(int i = 0; i < 3; i++) {
-            addSlotToContainer(new SlotBuggyBench(craftMatrix, 25 + i, 44 + i * 18, 37, x, y, z, inventory.player));
-        }
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 28, 44, 55, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 29, 80, 55, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 30, 44, 73, x, y, z, inventory.player));
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 31, 80, 73, x, y, z, inventory.player));
-        for(int i = 0; i < 3; i++) {
-            addSlotToContainer(new SlotBuggyBench(craftMatrix, 32 + i, 44 + i * 18, 91, x, y, z, inventory.player));
-        }
-
-        //CHEST
-        addSlotToContainer(new SlotBuggyBench(craftMatrix, 35, 107, 64, x, y, z, inventory.player));
-
-        //PLAYER INV
-        for(int i = 0; i < 9; i++) {
-            this.addSlotToContainer(new Slot(inventory, i, 8 + i * 18, 196));
-        }
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 9; j++) {
-                this.addSlotToContainer(new Slot(inventory, 9 + j + i * 9, 8 + j * 18, 138 + i * 18));
+        // Body
+        for (var6 = 0; var6 < 4; ++var6)
+        {
+            for (var7 = 0; var7 < 3; ++var7)
+            {
+                this.addSlotToContainer(new SlotBuggyBench(this.craftMatrix, var7 * 4 + var6 + 1, 39 + var7 * 18, 14 + var6 * 18 + change, x, y, z, par1InventoryPlayer.player));
             }
         }
 
-        onCraftMatrixChanged(craftMatrix);
+        for (var6 = 0; var6 < 2; ++var6)
+        {
+            for (var7 = 0; var7 < 2; ++var7)
+            {
+                this.addSlotToContainer(new SlotBuggyBench(this.craftMatrix, var7 * 2 + var6 + 13, 21 + var7 * 72, 14 + var6 * 54 + change, x, y, z, par1InventoryPlayer.player));
+            }
+        }
+
+        // Addons
+        for (int var8 = 0; var8 < 3; var8++)
+        {
+            this.addSlotToContainer(new SlotBuggyBench(this.craftMatrix, 17 + var8, 93 + var8 * 26, -15 + change, x, y, z, par1InventoryPlayer.player));
+        }
+
+        // Player inv:
+
+        for (var6 = 0; var6 < 3; ++var6)
+        {
+            for (var7 = 0; var7 < 9; ++var7)
+            {
+                this.addSlotToContainer(new Slot(par1InventoryPlayer, var7 + var6 * 9 + 9, 8 + var7 * 18, 111 + var6 * 18 + change));
+            }
+        }
+
+        for (var6 = 0; var6 < 9; ++var6)
+        {
+            this.addSlotToContainer(new Slot(par1InventoryPlayer, var6, 8 + var6 * 18, 169 + change));
+        }
+
+        this.onCraftMatrixChanged(this.craftMatrix);
     }
 
     @Override
@@ -117,53 +103,105 @@ public class ContainerBuggyBench extends Container
      * clicking.
      */
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
-        ItemStack stack = null;
-        Slot currentSlot = (Slot) this.inventorySlots.get(slotIndex);
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par1)
+    {
+        ItemStack var2 = null;
+        final Slot slot = (Slot) this.inventorySlots.get(par1);
+        final int b = this.inventorySlots.size();
 
-        if (currentSlot != null && currentSlot.getHasStack()) {
-            ItemStack currentStack = currentSlot.getStack();
-            stack = currentStack.copy();
+        if (slot != null && slot.getHasStack())
+        {
+            final ItemStack var4 = slot.getStack();
+            var2 = var4.copy();
 
-            if(!this.mergeOneItem(currentStack)) {
-                return null;
-            }
-
-            if (currentStack.stackSize == 0) {
-                if (slotIndex == 0) {
-                    currentSlot.onPickupFromSlot(player, currentStack);
+            if (par1 < b - 36)
+            {
+                if (!this.mergeItemStack(var4, b - 36, b, true))
+                {
+                    return null;
                 }
-                currentSlot.putStack(null);
-                return stack;
+
+                if (par1 == 0)
+                {
+                    slot.onSlotChange(var4, var2);
+                }
             }
-            if (currentStack.stackSize == stack.stackSize) {
+            else
+            {
+                Item i = var4.getItem();
+                if (i == GCItems.heavyPlatingTier1 || i == GCItems.partBuggy)
+                {
+                    for (int j = 1; j < 20; j++)
+                    {
+                        if (((Slot) this.inventorySlots.get(j)).isItemValid(var4))
+                        {
+                            this.mergeOneItem(var4, j, j + 1, false);
+                        }
+                    }
+                }
+                else
+                {
+                    if (par1 < b - 9)
+                    {
+                        if (!this.mergeItemStack(var4, b - 9, b, false))
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        if (!this.mergeItemStack(var4, b - 36, b - 9, false))
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+
+            if (var4.stackSize == 0)
+            {
+                slot.putStack((ItemStack) null);
+            }
+
+            if (var4.stackSize == var2.stackSize)
+            {
                 return null;
             }
-            currentSlot.onPickupFromSlot(player, currentStack);
-            if (slotIndex == 0) {
-                currentSlot.onSlotChanged();
-            }
+
+            slot.onSlotChanged();
+            slot.onPickupFromSlot(par1EntityPlayer, var4);
         }
-        return stack;
+
+        return var2;
     }
 
-    protected boolean mergeOneItem(ItemStack itemStack) {
-        boolean nothingLeft = false;
-        if (itemStack.stackSize > 0) {
-            for (int i = 1; i <= 35; i++) {
-                Slot slot = (Slot) this.inventorySlots.get(i);
-                ItemStack slotStack = slot.getStack();
-                if (slotStack == null && slot.isItemValid(itemStack)) {
-                    ItemStack stackOneItem = itemStack.copy();
+
+    protected boolean mergeOneItem(ItemStack par1ItemStack, int par2, int par3, boolean par4)
+    {
+        boolean flag1 = false;
+        if (par1ItemStack.stackSize > 0)
+        {
+            Slot slot;
+            ItemStack slotStack;
+
+            for (int k = par2; k < par3; k++)
+            {
+                slot = (Slot) this.inventorySlots.get(k);
+                slotStack = slot.getStack();
+
+                if (slotStack == null)
+                {
+                    ItemStack stackOneItem = par1ItemStack.copy();
                     stackOneItem.stackSize = 1;
-                    itemStack.stackSize--;
+                    par1ItemStack.stackSize--;
                     slot.putStack(stackOneItem);
                     slot.onSlotChanged();
-                    nothingLeft = true;
+                    flag1 = true;
                     break;
                 }
             }
         }
-        return nothingLeft;
+
+        return flag1;
     }
 }

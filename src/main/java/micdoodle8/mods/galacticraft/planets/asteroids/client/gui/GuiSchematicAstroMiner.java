@@ -1,10 +1,9 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.client.gui;
 
-import galaxyspace.GalaxySpace;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicResultPage;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
-import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModule;
 import micdoodle8.mods.galacticraft.planets.asteroids.inventory.ContainerSchematicAstroMiner;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
 import net.minecraft.client.gui.GuiButton;
@@ -17,14 +16,14 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiSchematicAstroMiner extends GuiContainer implements ISchematicResultPage
 {
-    public static final ResourceLocation schematicTexture = new ResourceLocation(GalaxySpace.ASSET_PREFIX, "textures/gui/schematic_rocket_GS1_Miner.png");
+    public static final ResourceLocation schematicTexture = new ResourceLocation(AsteroidsModule.ASSET_PREFIX, "textures/gui/schematic_astro_miner.png");
 
     private int pageIndex;
 
     public GuiSchematicAstroMiner(InventoryPlayer par1InventoryPlayer, int x, int y, int z)
     {
         super(new ContainerSchematicAstroMiner(par1InventoryPlayer, x, y, z));
-        this.ySize = 203;
+        this.ySize = 221;
     }
 
     @SuppressWarnings("unchecked")
@@ -57,8 +56,8 @@ public class GuiSchematicAstroMiner extends GuiContainer implements ISchematicRe
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
-        this.fontRendererObj.drawString(EnumColor.WHITE + AsteroidsItems.astroMiner.getItemStackDisplayName(new ItemStack(AsteroidsItems.astroMiner, 1, 0)), 7, 7, 0x404040);
-        this.fontRendererObj.drawString(EnumColor.WHITE + GCCoreUtil.translate("container.inventory"), 14, 110, 0x404040);
+        this.fontRendererObj.drawString(AsteroidsItems.astroMiner.getItemStackDisplayName(new ItemStack(AsteroidsItems.astroMiner, 1, 0)), 7, -20 + 27 + 25, 4210752);
+        this.fontRendererObj.drawString(GCCoreUtil.translate("container.inventory"), 8, 220 - 104 + 2 + 27 - 16, 4210752);
     }
 
     @Override

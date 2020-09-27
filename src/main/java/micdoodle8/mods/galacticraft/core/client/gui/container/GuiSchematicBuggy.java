@@ -1,10 +1,9 @@
 package micdoodle8.mods.galacticraft.core.client.gui.container;
 
-import galaxyspace.GalaxySpace;
 import micdoodle8.mods.galacticraft.api.recipe.ISchematicResultPage;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
+import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.inventory.ContainerBuggyBench;
-import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -13,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiSchematicBuggy extends GuiContainerGC implements ISchematicResultPage
 {
-    private static final ResourceLocation buggyBenchTexture = new ResourceLocation(GalaxySpace.ASSET_PREFIX, "textures/gui/schematic_rocket_GS1_Buggy.png");
+    private static final ResourceLocation buggyBenchTexture = new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/buggybench.png");
 
     private int pageIndex;
 
@@ -53,8 +52,8 @@ public class GuiSchematicBuggy extends GuiContainerGC implements ISchematicResul
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
-        this.fontRendererObj.drawString(EnumColor.WHITE + GCCoreUtil.translate("schematic.moonbuggy.name"), 7, 7, 0x404040);
-        this.fontRendererObj.drawString(EnumColor.WHITE + GCCoreUtil.translate("container.inventory"), 14, 128, 0x404040);
+        this.fontRendererObj.drawString(GCCoreUtil.translate("schematic.moonbuggy.name"), 7, -20 + 27, 4210752);
+        this.fontRendererObj.drawString(GCCoreUtil.translate("container.inventory"), 8, 202 - 104 + 2 + 27, 4210752);
     }
 
     @Override
@@ -63,8 +62,8 @@ public class GuiSchematicBuggy extends GuiContainerGC implements ISchematicResul
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(GuiSchematicBuggy.buggyBenchTexture);
         final int var5 = (this.width - this.xSize) / 2;
-        final int var6 = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
+        final int var6 = (this.height - 220) / 2;
+        this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, 220);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package micdoodle8.mods.galacticraft.planets.mars.inventory;
 
-import cpw.mods.ironchest.IronChest;
-import galaxyspace.core.register.GSItems;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
@@ -11,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class SlotSchematicCargoRocket extends Slot
@@ -57,27 +54,45 @@ public class SlotSchematicCargoRocket extends Slot
     }
 
     @Override
-    public boolean isItemValid(ItemStack itemStack)
+    public boolean isItemValid(ItemStack par1ItemStack)
     {
-        if(index == 1) {
-            return itemStack.getItem() == GCItems.basicItem && itemStack.getItemDamage() == 14;
-        } else if(index == 2) {
-            return itemStack.getItem() == GSItems.ControlComputer && itemStack.getItemDamage() == 101;
-        } else if(index >= 3 && index <= 5) {
-            return itemStack.getItem() == GSItems.ModuleSmallFuelCanister;
-        } else if(index == 7) {
-            return itemStack.getItem() == GCItems.partNoseCone;
-        } else if(index >= 8 && index <= 15) {
-            return itemStack.getItem() == MarsItems.marsItemBasic && itemStack.getItemDamage() == 3;
-        } else if(index == 16) {
-            return itemStack.getItem() == GCItems.rocketEngine && itemStack.getItemDamage() == 0;
-        } else if(index >= 17 && index <= 20) {
-            return itemStack.getItem() == GCItems.partFins;
-        } else if(index == 21) {
-            return itemStack.getItem() == Item.getItemFromBlock(IronChest.ironChestBlock) && (itemStack.getItemDamage() == 0 || itemStack.getItemDamage() == 1 || itemStack.getItemDamage() == 3);
-        } else {
-            return false;
+        switch (this.index)
+        {
+        case 1:
+            return par1ItemStack.getItem() == GCItems.partNoseCone;
+        case 2:
+            return par1ItemStack.getItem() == GCItems.basicItem && par1ItemStack.getItemDamage() == 14;
+        case 3:
+            return par1ItemStack.getItem() == MarsItems.marsItemBasic && par1ItemStack.getItemDamage() == 3;
+        case 4:
+            return par1ItemStack.getItem() == MarsItems.marsItemBasic && par1ItemStack.getItemDamage() == 3;
+        case 5:
+            return par1ItemStack.getItem() == MarsItems.marsItemBasic && par1ItemStack.getItemDamage() == 3;
+        case 6:
+            return par1ItemStack.getItem() == MarsItems.marsItemBasic && par1ItemStack.getItemDamage() == 3;
+        case 7:
+            return par1ItemStack.getItem() == MarsItems.marsItemBasic && par1ItemStack.getItemDamage() == 3;
+        case 8:
+            return par1ItemStack.getItem() == MarsItems.marsItemBasic && par1ItemStack.getItemDamage() == 3;
+        case 9:
+            return par1ItemStack.getItem() == GCItems.partFins;
+        case 10:
+            return par1ItemStack.getItem() == GCItems.partFins;
+        case 11:
+            return par1ItemStack.getItem() == GCItems.rocketEngine && par1ItemStack.getItemDamage() == 0;
+        case 12:
+            return par1ItemStack.getItem() == GCItems.partFins;
+        case 13:
+            return par1ItemStack.getItem() == GCItems.partFins;
+        case 14:
+            return true;
+        case 15:
+            return true;
+        case 16:
+            return true;
         }
+
+        return false;
     }
 
     /**

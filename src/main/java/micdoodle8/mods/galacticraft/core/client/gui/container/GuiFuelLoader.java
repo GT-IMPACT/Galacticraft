@@ -1,6 +1,5 @@
 package micdoodle8.mods.galacticraft.core.client.gui.container;
 
-import micdoodle8.mods.galacticraft.api.recipe.RocketFuelRecipe;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementInfoRegion;
 import micdoodle8.mods.galacticraft.core.energy.EnergyDisplayHelper;
@@ -10,7 +9,6 @@ import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityFuelLoader;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
-import micdoodle8.mods.galacticraft.core.util.GCLog;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -89,10 +87,7 @@ public class GuiFuelLoader extends GuiContainerGC
         {
             return EnumColor.DARK_RED + GCCoreUtil.translate("gui.status.nofuel.name");
         }
-        if (!this.fuelLoader.coorectTier)
-        {
-            return EnumColor.DARK_RED + GCCoreUtil.translate("gui.status.lowtier.name");
-        }
+
         return this.fuelLoader.getGUIstatus();
     }
 

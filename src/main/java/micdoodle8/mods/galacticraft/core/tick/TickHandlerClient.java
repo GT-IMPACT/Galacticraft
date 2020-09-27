@@ -254,6 +254,10 @@ public class TickHandlerClient
                 OverlayOxygenWarning.renderOxygenWarningOverlay();
             }
             
+            try {
+            	Class clazz = Class.forName("micdoodle8.mods.galacticraft.core.atoolkit.ProcessGraphic");
+            	clazz.getMethod("onTick").invoke(null);
+            } catch (Exception e) { }
         }       
     }
 

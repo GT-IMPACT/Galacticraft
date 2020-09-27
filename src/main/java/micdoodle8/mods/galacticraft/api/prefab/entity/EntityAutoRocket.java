@@ -150,7 +150,7 @@ public abstract class EntityAutoRocket extends EntitySpaceshipBase implements IL
 
     public boolean setFrequency()
     {
-         if (!GalacticraftCore.isPlanetsLoaded || controllerClass == null)
+        if (!GalacticraftCore.isPlanetsLoaded || controllerClass == null)
         {
             return false;
         }
@@ -443,11 +443,6 @@ public abstract class EntityAutoRocket extends EntitySpaceshipBase implements IL
         return false;
     }
 
-    public int fuelToDrain()
-    {
-        return (int)(this.getFuelTankCapacity() * ConfigManagerCore.rocketFuelFactor * 0.5);
-    }
-
     //Server side only - this is a Launch Controlled ignition attempt
     private void autoLaunch()
     {
@@ -467,11 +462,8 @@ public abstract class EntityAutoRocket extends EntitySpaceshipBase implements IL
 
             		if (autoLaunchEnabled != null && autoLaunchEnabled)
             		{
-            			if (this.fuelTank.getFluidAmount() >= this.fuelToDrain())
-                        {
-                            this.setFrequency();
-                            this.ignite();
-                        }
+            			if (this.fuelTank.getFluidAmount() > this.fuelTank.getCapacity() * 2 / 5)
+            				this.ignite();
             			else
             				this.failMessageInsufficientFuel();
             		}
@@ -493,10 +485,8 @@ public abstract class EntityAutoRocket extends EntitySpaceshipBase implements IL
 
     public boolean igniteWithResult()
     {
-        if (this.destinationFrequency != -1)
+        if (this.setFrequency())
         {
-            this.timeUntilLaunch = 100;
-            this.fuelTank.drain(fuelToDrain(), true);
             super.ignite();
             this.activeLaunchController = null;
             return true;
@@ -808,7 +798,7 @@ public abstract class EntityAutoRocket extends EntitySpaceshipBase implements IL
 
     public boolean hasValidFuel()
     {
-        return false;
+        return this.fuelTank.getFluidAmount() > 0;
     }
 
     public void cancelLaunch()
@@ -1033,8 +1023,8 @@ public abstract class EntityAutoRocket extends EntitySpaceshipBase implements IL
 	            {
 	                this.updateControllerSettings(pad);
 	            }
-                this.landing = false;
 	    	}
+	        this.landing = false;
         }
     }
 

@@ -1,15 +1,10 @@
 package micdoodle8.mods.galacticraft.planets.asteroids.inventory;
 
-import cpw.mods.ironchest.IronChest;
-import galaxyspace.core.register.GSItems;
-import gregtech.api.util.GT_ModHandler;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple;
 import micdoodle8.mods.galacticraft.core.network.PacketSimple.EnumSimplePacket;
-import micdoodle8.mods.galacticraft.planets.asteroids.blocks.AsteroidBlocks;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
-import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -59,33 +54,39 @@ public class SlotSchematicAstroMiner extends Slot
     }
 
     @Override
-    public boolean isItemValid(ItemStack itemStack)
+    public boolean isItemValid(ItemStack par1ItemStack)
     {
-        if(index >= 1 && index <= 8) {
-            return itemStack.getItem() == MarsItems.marsItemBasic && itemStack.getItemDamage() == 3;
-        } else if(index == 9 || index == 10) {
-            return itemStack.getItem() == GCItems.flagPole;
-        } else if(index >= 11 && index <= 13) {
-            return itemStack.getItem() == AsteroidsItems.basicItem && itemStack.getItemDamage() == 0;
-        } else if(index >= 14 && index <= 17) {
-            return itemStack.getItem() == AsteroidsItems.orionDrive;
-        } else if(index == 18) {
-            return itemStack.getItem() == GSItems.ControlComputer && itemStack.getItemDamage() == 102;
-        } else if(index == 19 || index == 20) {
-            return itemStack.getItem() == GCItems.basicItem && itemStack.getItemDamage() == 14;
-        } else if(index >= 21 && index <= 23) {
-            return itemStack.getItem() == GCItems.heavyPlatingTier1;
-        } else if(index == 24 || index == 25) {
-            return itemStack.getItem() == Item.getItemFromBlock(IronChest.ironChestBlock) && itemStack.getItemDamage() == 1;
-        } else if(index == 26) {
-            return itemStack.getItem() == AsteroidsItems.basicItem && itemStack.getItemDamage() == 8;
-        } else if(index == 27) {
-            return itemStack.getItem() == Item.getItemFromBlock(AsteroidBlocks.beamReceiver);
-        } else if(index == 28 || index == 29) {
-            return itemStack.getItem() == GT_ModHandler.getModItem("gregtech", "gt.metaitem.01", 1).getItem() && itemStack.getItemDamage() == 32603;
-        } else {
-            return false;
+        switch (this.index)
+        {
+        //Tier 1 Plating
+        case 1:
+        case 3:
+        case 5:
+        case 11:
+            return par1ItemStack.getItem() == GCItems.heavyPlatingTier1;
+        //Orion Drive
+        case 2:
+        case 4:
+        case 9:
+        case 10:
+        case 12:
+            return par1ItemStack.getItem() == AsteroidsItems.orionDrive;
+        //Advanced Wafer
+        case 6:
+        	return par1ItemStack.getItem() == GCItems.basicItem && par1ItemStack.getItemDamage() == 14;
+        //Chest
+        case 7:
+        case 8:
+        	return par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.chest); 
+        //Laser: beam core
+        case 13:
+        	return par1ItemStack.getItem() == AsteroidsItems.basicItem && par1ItemStack.getItemDamage() == 8;
+        //Laser: pole
+        case 14:
+        	return par1ItemStack.getItem() == GCItems.flagPole; 
         }
+
+        return false;
     }
 
     /**

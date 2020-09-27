@@ -325,7 +325,7 @@ public class EntityCargoRocket extends EntityAutoRocket implements IRocketType, 
     {
         if (this.targetVec != null)
         {
-            this.setPosition(this.targetVec.x + 0.5F, this.targetVec.y + 2, this.targetVec.z + 0.5F);
+            this.setPosition(this.targetVec.x + 0.5F, this.targetVec.y + 800, this.targetVec.z + 0.5F);
             this.landing = true;
         }
         else

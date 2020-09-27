@@ -303,7 +303,15 @@ public class PacketSimpleMars implements IPacket
             if (entity2 instanceof EntityCargoRocket)
             {
                 EntityCargoRocket rocket = (EntityCargoRocket) entity2;
-                rocket.statusValid = rocket.checkLaunchValidity();
+
+                int subType = (Integer) this.data.get(1);
+
+                switch (subType)
+                {
+                default:
+                    rocket.statusValid = rocket.checkLaunchValidity();
+                    break;
+                }
             }
             break;
         default:

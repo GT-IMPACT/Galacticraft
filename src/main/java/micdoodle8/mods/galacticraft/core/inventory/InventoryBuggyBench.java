@@ -8,12 +8,15 @@ import net.minecraft.item.ItemStack;
 public class InventoryBuggyBench implements IInventory
 {
     private final ItemStack[] stackList;
+    private final int inventoryWidth;
     private final Container eventHandler;
 
     public InventoryBuggyBench(Container par1Container)
     {
-        this.stackList = new ItemStack[36];
+        final int var4 = 32;
+        this.stackList = new ItemStack[var4];
         this.eventHandler = par1Container;
+        this.inventoryWidth = 5;
     }
 
     @Override
@@ -26,6 +29,19 @@ public class InventoryBuggyBench implements IInventory
     public ItemStack getStackInSlot(int par1)
     {
         return par1 >= this.getSizeInventory() ? null : this.stackList[par1];
+    }
+
+    public ItemStack getStackInRowAndColumn(int par1, int par2)
+    {
+        if (par1 >= 0 && par1 < this.inventoryWidth)
+        {
+            final int var3 = par1 + par2 * this.inventoryWidth;
+            return this.getStackInSlot(var3);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     @Override

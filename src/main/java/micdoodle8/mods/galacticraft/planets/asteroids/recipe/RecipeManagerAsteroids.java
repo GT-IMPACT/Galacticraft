@@ -132,22 +132,14 @@ public class RecipeManagerAsteroids
         List<ItemStack> list1 = new ArrayList();
         List<ItemStack> list2 = new ArrayList();
         List<ItemStack> list3 = new ArrayList();
-        List<ItemStack> list4 = new ArrayList();
-        List<ItemStack> list5 = new ArrayList();
-        list1.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 700));
-        list2.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 800));
-        list3.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 900));
-        list4.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 600));
-        list5.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 500));
-        list1.add(new ItemStack(GCItems.oxTankHeavy, 1, 3000));
-        list2.add(new ItemStack(GCItems.oxTankMedium, 1, 2000));
-        list3.add(new ItemStack(GCItems.oxTankLight, 1, 1000));
-        list4.add(new ItemStack(GCItems.oxTankSuperHeavy, 1, 4000));
-        list5.add(new ItemStack(GCItems.oxTankUltraHeavy, 1, 5000));
+        list1.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 751));
+        list2.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 834));
+        list3.add(new ItemStack(AsteroidsItems.canisterLOX, 1, 918));
+        list1.add(new ItemStack(GCItems.oxTankHeavy, 1, 2700));
+        list2.add(new ItemStack(GCItems.oxTankMedium, 1, 1800));
+        list3.add(new ItemStack(GCItems.oxTankLight, 1, 900));
         CraftingManager.getInstance().getRecipeList().add(new CanisterRecipes(new ItemStack(GCItems.oxTankHeavy, 1, 0), list1));
         CraftingManager.getInstance().getRecipeList().add(new CanisterRecipes(new ItemStack(GCItems.oxTankMedium, 1, 0), list2));
         CraftingManager.getInstance().getRecipeList().add(new CanisterRecipes(new ItemStack(GCItems.oxTankLight, 1, 0), list3));
-        CraftingManager.getInstance().getRecipeList().add(new CanisterRecipes(new ItemStack(GCItems.oxTankSuperHeavy, 1, 0), list4));
-        CraftingManager.getInstance().getRecipeList().add(new CanisterRecipes(new ItemStack(GCItems.oxTankUltraHeavy, 1, 0), list5));
     }
 }

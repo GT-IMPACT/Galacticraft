@@ -4,9 +4,8 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import galaxyspace.GalaxySpace;
-import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModule;
 import micdoodle8.mods.galacticraft.planets.asteroids.client.gui.GuiSchematicAstroMiner;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -21,12 +20,6 @@ import java.util.Set;
 public class AstroMinerRecipeHandler extends TemplateRecipeHandler
 {
     private static final ResourceLocation rocketGuiTexture = GuiSchematicAstroMiner.schematicTexture;
-    public static final int x = -1;
-    public static final int y = 0;
-    public static final int tX = 3;
-    public static final int tY = 16;
-    public static final int w = 168;
-    public static final int h = 96;
 
     public String getRecipeId()
     {
@@ -49,7 +42,7 @@ public class AstroMinerRecipeHandler extends TemplateRecipeHandler
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GuiDraw.changeTexture(AstroMinerRecipeHandler.rocketGuiTexture);
-        GuiDraw.drawTexturedModalRect(x, y, tX, tY, w, h);
+        GuiDraw.drawTexturedModalRect(0, -8, 3, 32, 168, 104);
     }
 
     @Override
@@ -134,13 +127,13 @@ public class AstroMinerRecipeHandler extends TemplateRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return EnumColor.INDIGO + GCCoreUtil.translate("tile.rocketWorkbench.name");
+        return GCCoreUtil.translate("tile.rocketWorkbench.name");
     }
 
     @Override
     public String getGuiTexture()
     {
-        return GalaxySpace.ASSET_PREFIX + "textures/gui/schematic_rocket_GS1_Miner.png";
+        return AsteroidsModule.TEXTURE_PREFIX + "textures/gui/schematic_astro_miner.png";
     }
 
     @Override

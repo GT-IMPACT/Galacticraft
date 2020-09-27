@@ -428,12 +428,6 @@ public class PacketSimple extends Packet implements IPacket
                 case ADDLEFTREDTANK:
                     gearData.setLeftTank(2);
                     break;
-                case ADDLEFTBLUETANK:
-                    gearData.setLeftTank(3);
-                    break;
-                case ADDLEFTVIOLETTANK:
-                    gearData.setLeftTank(4);
-                    break;
                 case ADDRIGHTGREENTANK:
                     gearData.setRightTank(0);
                     break;
@@ -442,12 +436,6 @@ public class PacketSimple extends Packet implements IPacket
                     break;
                 case ADDRIGHTREDTANK:
                     gearData.setRightTank(2);
-                    break;
-                case ADDRIGHTBLUETANK:
-                    gearData.setRightTank(3);
-                    break;
-                case ADDRIGHTVIOLETTANK:
-                    gearData.setRightTank(4);
                     break;
                 case REMOVE_LEFT_TANK:
                     gearData.setLeftTank(-1);
@@ -889,11 +877,21 @@ public class PacketSimple extends Packet implements IPacket
 
                 if (!ship.landing)
                 {
-
                     if (ship.hasValidFuel())
-                    {   
-                        ship.igniteCheckingCooldown();
-                        stats.launchAttempts = 0;
+                    {
+                        ItemStack stack2 = stats.extendedInventory.getStackInSlot(4);
+
+                        if (stack2 != null && stack2.getItem() instanceof ItemParaChute || stats.launchAttempts > 0)
+                        {
+                            ship.igniteCheckingCooldown();
+                            stats.launchAttempts = 0;
+                        }
+                        else if (stats.chatCooldown == 0 && stats.launchAttempts == 0)
+                        {
+                            player.addChatMessage(new ChatComponentText(GCCoreUtil.translate("gui.rocket.warning.noparachute")));
+                            stats.chatCooldown = 250;
+                            stats.launchAttempts = 1;
+                        }
                     }
                     else if (stats.chatCooldown == 0)
                     {

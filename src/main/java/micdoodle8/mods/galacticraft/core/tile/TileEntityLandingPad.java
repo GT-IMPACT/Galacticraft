@@ -3,8 +3,10 @@ package micdoodle8.mods.galacticraft.core.tile;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import micdoodle8.mods.galacticraft.api.entity.*;
-import micdoodle8.mods.galacticraft.api.prefab.entity.EntityTieredRocket;
+import micdoodle8.mods.galacticraft.api.entity.ICargoEntity;
+import micdoodle8.mods.galacticraft.api.entity.IDockable;
+import micdoodle8.mods.galacticraft.api.entity.IFuelable;
+import micdoodle8.mods.galacticraft.api.entity.ILandable;
 import micdoodle8.mods.galacticraft.api.tile.IFuelDock;
 import micdoodle8.mods.galacticraft.api.tile.ILandingPadAttachable;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
@@ -24,7 +26,7 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.HashSet;
 import java.util.List;
 
-public class TileEntityLandingPad extends TileEntityMulti implements IMultiBlock, IFuelableTiered, IFuelDock, ICargoEntity
+public class TileEntityLandingPad extends TileEntityMulti implements IMultiBlock, IFuelable, IFuelDock, ICargoEntity
 {
     private IDockable dockedEntity;
 
@@ -150,19 +152,6 @@ public class TileEntityLandingPad extends TileEntityMulti implements IMultiBlock
         }
 
         return null;
-    }
-
-    @Override
-    public int getRocketTier()
-    {
-        if (this.dockedEntity != null)
-        {
-            if (this.dockedEntity instanceof EntityTieredRocket)
-            {
-                return ((EntityTieredRocket)this.dockedEntity).getRocketTier();
-            }
-        }
-        return 0;
     }
 
     @Override

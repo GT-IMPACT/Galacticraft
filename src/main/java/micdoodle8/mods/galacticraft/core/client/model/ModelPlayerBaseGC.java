@@ -42,8 +42,6 @@ public class ModelPlayerBaseGC extends ModelPlayerBase
     public ModelRenderer[] greenOxygenTanks = new ModelRenderer[2];
     public ModelRenderer[] orangeOxygenTanks = new ModelRenderer[2];
     public ModelRenderer[] redOxygenTanks = new ModelRenderer[2];
-    public ModelRenderer[] blueOxygenTanks = new ModelRenderer[2];
-    public ModelRenderer[] violetOxygenTanks = new ModelRenderer[2];
     public ModelRenderer oxygenMask;
 
     private boolean usingParachute;
@@ -94,7 +92,7 @@ public class ModelPlayerBaseGC extends ModelPlayerBase
 	            {
 	        	//Helmet and Frequency Module are head modules
 	            case 0:
-	            case 13:
+	            case 9:
 	                return (ModelRenderer)modelRotationGCSmartMovingInit.newInstance(player, texOffsetX, texOffsetY, SmartRender.getPlayerBase(this.modelPlayer).getHead(), type);
 	            //Oxygen gear etc are body
 	            default:
@@ -251,24 +249,6 @@ public class ModelPlayerBaseGC extends ModelPlayerBase
             this.redOxygenTanks[1].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
             this.redOxygenTanks[1].setRotationPoint(-2F, 2F, 3.8F);
             this.redOxygenTanks[1].mirror = true;
-
-            this.blueOxygenTanks[0] = createModelRenderer(this.modelPlayer, 40, 0, 9);
-            this.blueOxygenTanks[0].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
-            this.blueOxygenTanks[0].setRotationPoint(2F, 2F, 3.8F);
-            this.blueOxygenTanks[0].mirror = true;
-            this.blueOxygenTanks[1] = createModelRenderer(this.modelPlayer, 40, 0, 10);
-            this.blueOxygenTanks[1].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
-            this.blueOxygenTanks[1].setRotationPoint(-2F, 2F, 3.8F);
-            this.blueOxygenTanks[1].mirror = true;
-
-            this.violetOxygenTanks[0] = createModelRenderer(this.modelPlayer, 52, 0, 11);
-            this.violetOxygenTanks[0].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
-            this.violetOxygenTanks[0].setRotationPoint(2F, 2F, 3.8F);
-            this.violetOxygenTanks[0].mirror = true;
-            this.violetOxygenTanks[1] = createModelRenderer(this.modelPlayer, 52, 0, 12);
-            this.violetOxygenTanks[1].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
-            this.violetOxygenTanks[1].setRotationPoint(-2F, 2F, 3.8F);
-            this.violetOxygenTanks[1].mirror = true;
 
             //TODO: Frequency module
             /*
@@ -430,13 +410,9 @@ public class ModelPlayerBaseGC extends ModelPlayerBase
             boolean wearingLeftTankGreen = gearData.getLeftTank() == 0;
             boolean wearingLeftTankOrange = gearData.getLeftTank() == 1;
             boolean wearingLeftTankRed = gearData.getLeftTank() == 2;
-            boolean wearingLeftTankBlue = gearData.getLeftTank() == 3;
-            boolean wearingLeftTankViolet = gearData.getLeftTank() == 4;
             boolean wearingRightTankGreen = gearData.getRightTank() == 0;
             boolean wearingRightTankOrange = gearData.getRightTank() == 1;
             boolean wearingRightTankRed = gearData.getRightTank() == 2;
-            boolean wearingRightTankBlue = gearData.getRightTank() == 3;
-            boolean wearingRightTankViolet = gearData.getLeftTank() == 4;
             //boolean wearingFrequencyModule = gearData.getFrequencyModule() > -1;
 
             if (wearingMask)
@@ -502,16 +478,6 @@ public class ModelPlayerBaseGC extends ModelPlayerBase
             	this.greenOxygenTanks[0].render(var7);
             }
 
-            if (wearingLeftTankBlue)
-            {
-                this.blueOxygenTanks[0].render(var7);
-            }
-
-            if (wearingLeftTankViolet)
-            {
-                this.violetOxygenTanks[0].render(var7);
-            }
-
             if (wearingRightTankRed)
             {
             	this.redOxygenTanks[1].render(var7);
@@ -525,16 +491,6 @@ public class ModelPlayerBaseGC extends ModelPlayerBase
             if (wearingRightTankGreen)
             {
             	this.greenOxygenTanks[1].render(var7);
-            }
-
-            if (wearingRightTankBlue)
-            {
-                this.blueOxygenTanks[1].render(var7);
-            }
-
-            if (wearingRightTankViolet)
-            {
-                this.violetOxygenTanks[1].render(var7);
             }
 
             if (usingParachute)
