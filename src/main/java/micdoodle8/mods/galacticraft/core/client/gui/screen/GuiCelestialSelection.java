@@ -55,7 +55,7 @@ public class GuiCelestialSelection extends GuiScreen
     }
 
     protected static final int MAX_SPACE_STATION_NAME_LENGTH = 32;
-    
+
     protected Matrix4f mainWorldMatrix;
     protected float zoom = 0.0F;
     protected float planetZoom = 0.0F;
@@ -64,6 +64,8 @@ public class GuiCelestialSelection extends GuiScreen
     protected Vector2f preSelectPosition = new Vector2f();
     public static ResourceLocation guiMain0 = new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialselection.png");
     public static ResourceLocation guiMain1 = new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialselection1.png");
+    public static ResourceLocation guiBG = new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/galaxymap_1.png");
+
     protected int ticksSinceSelection = 0;
     protected int ticksSinceUnselection = -1;
     protected int ticksSinceMenuOpen = 0;
@@ -293,13 +295,13 @@ public class GuiCelestialSelection extends GuiScreen
     		float lerp = this.lerp(-0.75F, 0.0F, (float)Math.pow(scale, 0.5F));
             return lerp;
     	}
-    	
+
         if (this.selectedBody == null)
         {
             if (!this.doneZooming)
             {
                 float unselectScale = this.lerp(this.zoom, this.preSelectZoom, Math.max(0.0F, Math.min(this.ticksSinceUnselection / 100.0F, 1.0F)));
-                
+
                 if (unselectScale <= this.preSelectZoom + 0.05F)
                 {
                     this.zoom = this.preSelectZoom;
@@ -347,7 +349,7 @@ public class GuiCelestialSelection extends GuiScreen
             	}
                 return this.lerpVec2(this.position, this.preSelectPosition, f0);
             }
-            
+
             return new Vector2f(this.position.x + translation.x, this.position.y + translation.y);
         }
 
@@ -358,16 +360,16 @@ public class GuiCelestialSelection extends GuiScreen
                 Vector3f posVec = this.getCelestialBodyPosition(((IChildBody) this.selectedBody).getParentPlanet());
                 return new Vector2f(posVec.x, posVec.y);
             }
-            
+
             return new Vector2f(this.position.x + translation.x, this.position.y + translation.y);
         }
-        
+
         if (this.selectedBody instanceof Planet && this.lastSelectedBody instanceof IChildBody && ((IChildBody) this.lastSelectedBody).getParentPlanet() == this.selectedBody)
         {
             Vector3f posVec = this.getCelestialBodyPosition(this.selectedBody);
             return new Vector2f(posVec.x, posVec.y);
         }
-        
+
         Vector3f posVec = this.getCelestialBodyPosition(this.selectedBody);
         return this.lerpVec2(this.position, new Vector2f(posVec.x, posVec.y), Math.max(0.0F, Math.min((this.ticksSinceSelection + partialTicks - 18) / 7.5F, 1.0F)));
     }
@@ -532,7 +534,7 @@ public class GuiCelestialSelection extends GuiScreen
         {
             this.ticksSinceUnselection++;
         }
-        
+
         if (!this.renamingSpaceStation && (this.selectedBody == null || this.selectionCount < 2))
         {
             if (mc.gameSettings.isKeyDown(KeyHandlerClient.leftKey))
@@ -540,19 +542,19 @@ public class GuiCelestialSelection extends GuiScreen
             	translation.x += -2.0F;
             	translation.y += -2.0F;
             }
-            
+
             if (mc.gameSettings.isKeyDown(KeyHandlerClient.rightKey))
             {
             	translation.x += 2.0F;
             	translation.y += 2.0F;
             }
-            
+
             if (mc.gameSettings.isKeyDown(KeyHandlerClient.upKey))
             {
             	translation.x += 2.0F;
             	translation.y += -2.0F;
             }
-            
+
             if (mc.gameSettings.isKeyDown(KeyHandlerClient.downKey))
             {
             	translation.x += -2.0F;
@@ -631,10 +633,10 @@ public class GuiCelestialSelection extends GuiScreen
     }
 
     @Override
-    protected void mouseClickMove(int x, int y, int lastButtonClicked, long timeSinceMouseClick) 
+    protected void mouseClickMove(int x, int y, int lastButtonClicked, long timeSinceMouseClick)
     {
     	super.mouseClickMove(x, y, lastButtonClicked, timeSinceMouseClick);
-    	
+
     	if (mouseDragging && lastMovePosX != -1 && lastButtonClicked == 0)
     	{
     		int deltaX = x - lastMovePosX;
@@ -643,7 +645,7 @@ public class GuiCelestialSelection extends GuiScreen
         	translation.x += (deltaX - deltaY) * -0.4F * (ConfigManagerCore.invertMapMouseScroll ? -1.0F : 1.0F) * ConfigManagerCore.mapMouseScrollSensitivity;
         	translation.y += (deltaY + deltaX) * -0.4F * (ConfigManagerCore.invertMapMouseScroll ? -1.0F : 1.0F) * ConfigManagerCore.mapMouseScrollSensitivity;
     	}
-    	
+
 		lastMovePosX = x;
 		lastMovePosY = y;
     }
@@ -657,7 +659,7 @@ public class GuiCelestialSelection extends GuiScreen
 		lastMovePosX = -1;
 		lastMovePosY = -1;
     }
-    
+
     @Override
     protected void mouseClicked(int x, int y, int button)
     {
@@ -923,7 +925,7 @@ public class GuiCelestialSelection extends GuiScreen
                         {
                             this.lastSelectedBody = this.selectedBody;
                         }
-                        
+
                         if (this.selectionCount == 1 && !(bodyClicked instanceof IChildBody))
                         {
                             this.preSelectZoom = this.zoom;
@@ -933,14 +935,14 @@ public class GuiCelestialSelection extends GuiScreen
                         this.selectedBody = bodyClicked;
                         this.ticksSinceSelection = 0;
                         this.selectionCount++;
-                        
+
                         //Auto select if it's a spacestation and there is only a single entry
                         if (this.selectedBody instanceof Satellite && this.spaceStationMap.get(this.getSatelliteParentID((Satellite) this.selectedBody)).size() == 1)
                         {
                             Iterator<Map.Entry<String, StationDataGUI>> it = this.spaceStationMap.get(this.getSatelliteParentID((Satellite) this.selectedBody)).entrySet().iterator();
                             this.selectedStationOwner = it.next().getKey();
                         }
-                        	
+
                         clickHandled = true;
                         break;
                     }
@@ -1036,14 +1038,13 @@ public class GuiCelestialSelection extends GuiScreen
         fb.clear();
         GL11.glMultMatrix(fb);
 
-        this.setBlackBackground();
+        //this.setBackground();
+        drawBodyOnGUI(0, 0);
 
         GL11.glPushMatrix();
         Matrix4f worldMatrix = this.setIsometric(partialTicks);
         mainWorldMatrix = worldMatrix;
-        float gridSize = 7000F; //194.4F;
-        //TODO: Add dynamic map sizing, to allow the map to be small by default and expand when more distant solar systems are added.
-		this.drawGrid(gridSize, height / 3 / 3.5F);
+        float gridSize = 11000F; //194.4F;
         this.drawCircles();
         GL11.glPopMatrix();
 
@@ -1083,7 +1084,7 @@ public class GuiCelestialSelection extends GuiScreen
                 e.printStackTrace();
             }
         }
-        
+
         this.drawBorder();
         GL11.glPopMatrix();
 
@@ -1173,13 +1174,13 @@ public class GuiCelestialSelection extends GuiScreen
         float timeScale = cBody instanceof Planet ? 200.0F : 2.0F;
         float distanceFromCenter = this.getScale(cBody);
         Vector3f cBodyPos = new Vector3f((float) Math.sin(cBodyTicks / (timeScale * cBody.getRelativeOrbitTime()) + cBody.getPhaseShift()) * distanceFromCenter, (float) Math.cos(cBodyTicks / (timeScale * cBody.getRelativeOrbitTime()) + cBody.getPhaseShift()) * distanceFromCenter, 0);
-        
+
         if (cBody instanceof Planet)
         {
         	Vector3f parentVec = this.getCelestialBodyPosition(((Planet) cBody).getParentSolarSystem().getMainStar());
         	return Vector3f.add(cBodyPos, parentVec, null);
         }
-        
+
         if (cBody instanceof IChildBody)
         {
             Vector3f parentVec = this.getCelestialBodyPosition(((IChildBody) cBody).getParentPlanet());
@@ -1188,7 +1189,7 @@ public class GuiCelestialSelection extends GuiScreen
 
         if (cBody instanceof Satellite)
         {
-        	
+
             Vector3f parentVec = this.getCelestialBodyPosition(((Satellite) cBody).getParentPlanet());
             return Vector3f.add(cBodyPos, parentVec, null);
         }
@@ -1198,8 +1199,8 @@ public class GuiCelestialSelection extends GuiScreen
 
     public static int getWidthForCelestialBodyStatic(CelestialBody celestialBody)
     {
-        if (Minecraft.getMinecraft().currentScreen instanceof GuiCelestialSelection && 
-        		(celestialBody != ((GuiCelestialSelection) Minecraft.getMinecraft().currentScreen).selectedBody || 
+        if (Minecraft.getMinecraft().currentScreen instanceof GuiCelestialSelection &&
+        		(celestialBody != ((GuiCelestialSelection) Minecraft.getMinecraft().currentScreen).selectedBody ||
         		((GuiCelestialSelection) Minecraft.getMinecraft().currentScreen).selectionCount != 1))
         {
             return celestialBody instanceof Star ? 8 : (celestialBody instanceof Planet ? 4 : (celestialBody instanceof IChildBody ? 4 : (celestialBody instanceof Satellite ? 4 : 2)));
@@ -1222,7 +1223,7 @@ public class GuiCelestialSelection extends GuiScreen
             {
                 GL11.glPushMatrix();
                 Matrix4f worldMatrix0 = new Matrix4f(worldMatrix);
-                
+
                 Matrix4f.translate(this.getCelestialBodyPosition(star), worldMatrix0, worldMatrix0);
 
                 Matrix4f worldMatrix1 = new Matrix4f();
@@ -1281,7 +1282,7 @@ public class GuiCelestialSelection extends GuiScreen
                     CelestialBodyRenderEvent.Post postEvent = new CelestialBodyRenderEvent.Post(star);
                     MinecraftForge.EVENT_BUS.post(postEvent);
                 }
-                
+
                 fb.clear();
                 GL11.glPopMatrix();
             }
@@ -2198,7 +2199,7 @@ public class GuiCelestialSelection extends GuiScreen
         tessellator.draw();
     }
 
-    public void setBlackBackground()
+    public void setBackground()
     {
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
@@ -2207,6 +2208,7 @@ public class GuiCelestialSelection extends GuiScreen
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         final Tessellator var3 = Tessellator.instance;
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
+        this.mc.getTextureManager().bindTexture(guiBG);
         var3.startDrawingQuads();
         var3.addVertex(0.0D, height, -90.0D);
         var3.addVertex(width, height, -90.0D);
@@ -2216,6 +2218,7 @@ public class GuiCelestialSelection extends GuiScreen
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
     }
 
     public Matrix4f setIsometric(float partialTicks)
@@ -2259,7 +2262,7 @@ public class GuiCelestialSelection extends GuiScreen
     public void drawCircles()
     {
         GL11.glColor4f(1, 1, 1, 1);
-        GL11.glLineWidth(3);
+        GL11.glLineWidth(1);
         int count = 0;
 
         final float theta = (float) (2 * Math.PI / 90);
@@ -2267,11 +2270,11 @@ public class GuiCelestialSelection extends GuiScreen
         final float sin = (float) Math.sin(theta);
 
         for (Planet planet : GalaxyRegistry.getRegisteredPlanets().values())
-        {	
+        {
             if (planet.getParentSolarSystem() != null)
             {
             	Vector3f systemOffset = this.getCelestialBodyPosition(planet.getParentSolarSystem().getMainStar());
-            	
+
             	float x = this.getScale(planet);
                 float y = 0;
 
@@ -2307,7 +2310,7 @@ public class GuiCelestialSelection extends GuiScreen
                     if (!preEvent.isCanceled())
                     {
                     	GL11.glTranslatef(systemOffset.x, systemOffset.y, systemOffset.z);
-                    	
+
                         GL11.glBegin(GL11.GL_LINE_LOOP);
 
                         float temp;
@@ -2319,11 +2322,11 @@ public class GuiCelestialSelection extends GuiScreen
                             x = cos * x - sin * y;
                             y = sin * temp + cos * y;
                         }
-                        
+
                         GL11.glEnd();
-                        
+
                     	GL11.glTranslatef(-systemOffset.x, -systemOffset.y, -systemOffset.z);
-                        
+
                         count++;
                     }
 
@@ -2479,6 +2482,30 @@ public class GuiCelestialSelection extends GuiScreen
         }
 
         GL11.glLineWidth(1);
+    }
+
+    protected void drawBodyOnGUI(int x, int y) {
+        this.mc.renderEngine.bindTexture(guiBG);
+        drawFullSizedTexturedRect(x, y);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthMask(false);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    public void drawFullSizedTexturedRect(int paramInt1, int paramInt2) {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV(paramInt1, height, this.zLevel, 0.0D, 0.0D);
+        tessellator.addVertexWithUV(width, height, this.zLevel, 1.0D, 0.0D);
+        tessellator.addVertexWithUV(width, paramInt2, this.zLevel, 1.0D, 1.0D);
+        tessellator.addVertexWithUV(paramInt1, paramInt2, this.zLevel, 0.0D, 1.0D);
+        tessellator.draw();
     }
 
     @Override
