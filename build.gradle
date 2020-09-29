@@ -1,7 +1,4 @@
-def mcVersion = "1.7"
-def versionMajor = 3
-def versionMinor = 0
-def versionRev = "19-GTNH"
+def versionRev = 505
 
 def gsversion = "1.1.6-GTNH"
 def gsjenkinsbuild = 33
@@ -17,6 +14,10 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven {
+        name = "gt"
+        url = "https://gregtech.overminddl1.com/"
+   		}
         maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
@@ -37,7 +38,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = "${mcVersion}-${versionMajor}.${versionMinor}.${versionRev}" // Set the version number
+version = "3.0.12.${versionRev}-impact" // Set the version number
 group= "micdoodle8.mods.galacticraft"
 archivesBaseName = "Galacticraft"
 	
@@ -55,12 +56,7 @@ configurations {
 repositories {
     maven {
         name 'Forge'
-        url 'http://files.minecraftforge.net/maven'
-    }
-    maven {
-        //Everything
-        name = 'curseforge'
-        url = 'https://minecraft.curseforge.com/api/maven/'
+        url 'https://files.minecraftforge.net/maven'
     }
     maven {
         name = "chickenbones"
@@ -92,15 +88,8 @@ repositories {
 }
 
 dependencies {
-	compile files("libs/MicdoodleCore-1.7.10-3.0.13-GTNH-dev.jar")
-
-    compile "player-api:PlayerAPI:1.7.10:1.4"
-    compile "render-player-api:RenderPlayerAPI:1.7.10:1.4"
-    compile "smart-render:SmartRender:1.7.10:2.1" // SmartRender-1.7.10-2.1
+	compile files("libs/")
     
-    compile "tconstruct:TConstruct:1.7.10-1.8.4.build951:deobf"
-    
-    compileOnly "biomes-o-plenty:BiomesOPlenty-1.7.10:2.1.0.2308:universal"
     compileOnly "com.mod-buildcraft:buildcraft:7.1.23:api"
 
     compileOnly "codechicken:CodeChickenCore:1.7.10-1.0.7.46:dev"
@@ -114,17 +103,7 @@ dependencies {
     compileOnly "net.industrial-craft:industrialcraft-2:2.2.790-experimental:dev"
 }
 
-task getIronChest(type: Download) {
-    onlyIf {
-        !file("libs/Ironchest-6.0.62-(742).jar").exists()
-    }
-    src "http://downloads.gtnewhorizons.com/Mods_for_Jenkins/ironchest-1.7.10-6.0.62.742-universal.jar"
-    dest file("libs/Ironchest-6.0.62-(742).jar")
-    mustRunAfter "deobfBinJar"
-    mustRunAfter "repackMinecraft"
-}
-
-task getGalaxySpace(type: Download, dependsOn: "getIronChest") {
+task getGalaxySpace(type: Download) {
     onlyIf {
         !file("libs/GalaxySpace-${gsversion}-(${gsjenkinsbuild}).jar").exists()
     }
