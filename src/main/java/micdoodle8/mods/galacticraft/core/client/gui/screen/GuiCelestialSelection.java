@@ -22,6 +22,7 @@ import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+import micdoodle8.mods.galacticraft.planets.mars.MarsModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -84,6 +85,7 @@ public class GuiCelestialSelection extends GuiScreen
     protected Object selectedParent = GalacticraftCore.solarSystemSol;
     protected final boolean mapMode;
     public List<CelestialBody> possibleBodies;
+    protected CelestialBody nextSelectedBody = null;
 
     // Each home planet has a map of owner's names linked with their station data:
     public Map<Integer, Map<String, StationDataGUI>> spaceStationMap = Maps.newHashMap();
@@ -561,6 +563,26 @@ public class GuiCelestialSelection extends GuiScreen
             	translation.y += 2.0F;
             }
         }
+
+        if(nextSelectedBody != null) {
+            this.selectAndZoom(nextSelectedBody);
+            nextSelectedBody = null;
+        }
+
+    }
+
+    public void selectAndZoom(CelestialBody target)
+    {
+        this.lastSelectedBody = this.selectedBody;
+        this.selectedBody = target;
+        if(this.lastSelectedBody instanceof IChildBody) {
+            this.selectionCount = 1;
+        } else {
+            this.selectionCount = 2;
+        }
+        this.preSelectZoom = this.zoom;
+        this.preSelectPosition = this.position;
+        this.ticksSinceSelection = 0;
     }
 
     protected boolean teleportToSelectedBody()
@@ -665,6 +687,8 @@ public class GuiCelestialSelection extends GuiScreen
     {
         super.mouseClicked(x, y, button);
         boolean clickHandled = false;
+        // fix for parent selection
+        CelestialBody prevSelection = this.selectedBody;
 
         if (this.selectedBody != null && x > BORDER_WIDTH + BORDER_EDGE_WIDTH && x < BORDER_WIDTH + BORDER_EDGE_WIDTH + 88 && y > BORDER_WIDTH + BORDER_EDGE_WIDTH && y < BORDER_WIDTH + BORDER_EDGE_WIDTH + 13)
         {
@@ -979,6 +1003,22 @@ public class GuiCelestialSelection extends GuiScreen
         {
             this.selectedParent = selectedParent;
             this.ticksSinceMenuOpen = 0;
+        }
+
+        if(this.selectedBody != prevSelection) {
+            // not sure why, but...
+            if(prevSelection instanceof IChildBody) {
+                this.selectionCount = 1;
+            } else {
+                this.selectionCount = 2;
+            }
+            this.lastSelectedBody = prevSelection;
+            this.preSelectZoom = this.zoom;
+            this.preSelectPosition = this.position;
+            this.ticksSinceSelection = 0;
+            //this.ticksSinceUnselection = prevTicksUnSelection;
+            //this.ticksSinceSelection = prevTicksSelection;
+            this.doneZooming = false;
         }
     }
 
@@ -2038,6 +2078,7 @@ public class GuiCelestialSelection extends GuiScreen
                     this.drawTexturedModalRect(width / 2 - 90 + 8, this.height / 2 - 38 + 18, 161, 13, 159, 67, 161, 13, false, false);
                     this.drawTexturedModalRect(width / 2 - 90 + 17, this.height / 2 - 38 + 59, 72, 12, 159, 80, 72, 12, true, false);
                     this.drawTexturedModalRect(width / 2, this.height / 2 - 38 + 59, 72, 12, 159, 80, 72, 12, false, false);
+
                     str = GCCoreUtil.translate("gui.message.assignName.name");
                     this.fontRendererObj.drawString(str, width / 2 - this.fontRendererObj.getStringWidth(str) / 2, this.height / 2 - 35, ColorUtil.to32BitColor(255, 255, 255, 255));
                     str = GCCoreUtil.translate("gui.message.apply.name");
