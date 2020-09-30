@@ -87,8 +87,14 @@ public class AsteroidsModuleClient implements IPlanetsModuleClient
         RenderingRegistry.registerEntityRenderingHandler(EntityGrapple.class, new RenderGrapple());
         IModelCustom podModel = AdvancedModelLoader.loadModel(new ResourceLocation(AsteroidsModule.ASSET_PREFIX, "models/pod.obj"));
         RenderingRegistry.registerEntityRenderingHandler(EntityEntryPod.class, new RenderEntryPod(podModel));
+
+
+
         IModelCustom rocketModel = AdvancedModelLoader.loadModel(new ResourceLocation(AsteroidsModule.ASSET_PREFIX, "models/tier3rocket.obj"));
         RenderingRegistry.registerEntityRenderingHandler(EntityTier3Rocket.class, new RenderTier3Rocket(rocketModel, AsteroidsModule.ASSET_PREFIX, "tier3rocket"));
+
+
+
         RenderingRegistry.registerEntityRenderingHandler(EntityAstroMiner.class, new RenderAstroMiner());
         IModelCustom grappleModel = AdvancedModelLoader.loadModel(new ResourceLocation(AsteroidsModule.ASSET_PREFIX, "models/grapple.obj"));
         MinecraftForgeClient.registerItemRenderer(AsteroidsItems.grapple, new ItemRendererGrappleHook(grappleModel));

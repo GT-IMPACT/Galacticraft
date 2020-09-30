@@ -215,7 +215,7 @@ public class MarsModule implements IPlanetsModule
 //        MarsModule.registerGalacticraftNonMobEntity(EntityTerraformBubble.class, "TerraformBubble", 150, 20, false);
         MarsModule.registerGalacticraftNonMobEntity(EntityProjectileTNT.class, "ProjectileTNT", 150, 1, true);
         MarsModule.registerGalacticraftNonMobEntity(EntityLandingBalloons.class, "LandingBalloons", 150, 5, true);
-        MarsModule.registerGalacticraftNonMobEntity(EntityCargoRocket.class, "CargoRocket", 150, 1, false);
+
     }
 
     public void registerGalacticraftCreature(Class<? extends Entity> var0, String var1, int back, int fore)

@@ -11,9 +11,7 @@ import micdoodle8.mods.galacticraft.core.network.IPacket;
 import micdoodle8.mods.galacticraft.core.network.NetworkUtil;
 import micdoodle8.mods.galacticraft.core.util.GCLog;
 import micdoodle8.mods.galacticraft.core.util.PlayerUtil;
-import micdoodle8.mods.galacticraft.planets.mars.client.gui.GuiCargoRocket;
 import micdoodle8.mods.galacticraft.planets.mars.client.gui.GuiSlimelingInventory;
-import micdoodle8.mods.galacticraft.planets.mars.entities.EntityCargoRocket;
 import micdoodle8.mods.galacticraft.planets.mars.entities.EntitySlimeling;
 import micdoodle8.mods.galacticraft.planets.mars.tile.TileEntityCryogenicChamber;
 import micdoodle8.mods.galacticraft.planets.mars.tile.TileEntityLaunchController;
@@ -146,11 +144,6 @@ public class PacketSimpleMars implements IPacket
             case 1:
                 entityID = (Integer) this.data.get(2);
                 entity = player.worldObj.getEntityByID(entityID);
-
-                if (entity != null && entity instanceof EntityCargoRocket)
-                {
-                    FMLClientHandler.instance().getClient().displayGuiScreen(new GuiCargoRocket(player.inventory, (EntityCargoRocket) entity));
-                }
 
                 player.openContainer.windowId = (Integer) this.data.get(0);
                 break;
@@ -299,20 +292,6 @@ public class PacketSimpleMars implements IPacket
             break;
         case S_UPDATE_CARGO_ROCKET_STATUS:
             Entity entity2 = player.worldObj.getEntityByID((Integer) this.data.get(0));
-
-            if (entity2 instanceof EntityCargoRocket)
-            {
-                EntityCargoRocket rocket = (EntityCargoRocket) entity2;
-
-                int subType = (Integer) this.data.get(1);
-
-                switch (subType)
-                {
-                default:
-                    rocket.statusValid = rocket.checkLaunchValidity();
-                    break;
-                }
-            }
             break;
         default:
             break;

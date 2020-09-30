@@ -102,6 +102,12 @@ import micdoodle8.mods.galacticraft.core.tile.*;
 import micdoodle8.mods.galacticraft.core.util.VersionUtil;
 import micdoodle8.mods.galacticraft.core.wrappers.BlockMetaList;
 import micdoodle8.mods.galacticraft.core.wrappers.PlayerGearData;
+import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModule;
+import micdoodle8.mods.galacticraft.planets.asteroids.client.render.entity.RenderTier3Rocket;
+import micdoodle8.mods.galacticraft.planets.asteroids.client.render.item.ItemRendererTier3Rocket;
+import micdoodle8.mods.galacticraft.planets.mars.MarsModule;
+import micdoodle8.mods.galacticraft.planets.mars.entities.EntityTier2Rocket;
+import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MusicTicker;
@@ -127,6 +133,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
@@ -281,7 +289,9 @@ public class ClientProxyCore extends CommonProxyCore
 
     public static void registerEntityRenderers()
     {
-        RenderingRegistry.registerEntityRenderingHandler(EntityTier1Rocket.class, new RenderTier1Rocket(new ModelRocketTier1(), GalacticraftCore.ASSET_PREFIX, "rocketT1"));
+
+
+        //RenderingRegistry.registerEntityRenderingHandler(EntityTier1Rocket.class, new RenderTier3Rocket((IModelCustom) new ModelRocketTier1(), GalacticraftCore.ASSET_PREFIX, "rocketT1"));
         RenderingRegistry.registerEntityRenderingHandler(EntityEvolvedSpider.class, new RenderEvolvedSpider());
         RenderingRegistry.registerEntityRenderingHandler(EntityEvolvedZombie.class, new RenderEvolvedZombie());
         RenderingRegistry.registerEntityRenderingHandler(EntityEvolvedCreeper.class, new RenderEvolvedCreeper());
@@ -312,7 +322,7 @@ public class ClientProxyCore extends CommonProxyCore
     public static void registerItemRenderers()
     {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(GCBlocks.unlitTorch), new ItemRendererUnlitTorch());
-        MinecraftForgeClient.registerItemRenderer(GCItems.rocketTier1, new ItemRendererTier1Rocket(new EntityTier1Rocket(ClientProxyCore.mc.theWorld), new ModelRocketTier1(), new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/model/rocketT1.png")));
+       // MinecraftForgeClient.registerItemRenderer(GCItems.rocketTier1, new ItemRendererTier1Rocket(new EntityTier1Rocket(ClientProxyCore.mc.theWorld), new ModelRocketTier1(), new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/model/rocketT1.png")));
         MinecraftForgeClient.registerItemRenderer(GCItems.buggy, new ItemRendererBuggy());
         MinecraftForgeClient.registerItemRenderer(GCItems.flag, new ItemRendererFlag());
         MinecraftForgeClient.registerItemRenderer(GCItems.key, new ItemRendererKey(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/model/treasure.png")));
