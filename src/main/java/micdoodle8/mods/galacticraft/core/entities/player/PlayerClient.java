@@ -182,6 +182,7 @@ public class PlayerClient implements IPlayerClient
             {
 	            stats.lastZoomed = false;
 	            TickHandlerClient.zoom(4.0F);
+                FMLClientHandler.instance().getClient().gameSettings.thirdPersonView = 0;
             }
         }
 
@@ -216,11 +217,12 @@ public class PlayerClient implements IPlayerClient
         if (stats.usingParachute && player.onGround)
         {
             stats.setParachute(false);
-            FMLClientHandler.instance().getClient().gameSettings.thirdPersonView = stats.thirdPersonView;
+            FMLClientHandler.instance().getClient().gameSettings.thirdPersonView = 0;
         }
 
         if (!stats.lastUsingParachute && stats.usingParachute)
         {
+            FMLClientHandler.instance().getClient().gameSettings.thirdPersonView = 0;
             FMLClientHandler.instance().getClient().getSoundHandler().playSound(new PositionedSoundRecord(new ResourceLocation(GalacticraftCore.TEXTURE_PREFIX + "player.parachute"), 0.95F + player.getRNG().nextFloat() * 0.1F, 1.0F, (float) player.posX, (float) player.posY, (float) player.posZ));
         }
 
