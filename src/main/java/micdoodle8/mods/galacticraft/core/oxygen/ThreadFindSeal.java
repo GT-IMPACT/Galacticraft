@@ -60,7 +60,7 @@ public class ThreadFindSeal
         this.checkedInit();
         this.torchesToUpdate = new LinkedList<BlockVec3>();
 
-        this.sealersAround = TileEntityOxygenSealer.getSealersAround(world, head.x, head.y, head.z, 1024 * 1024);
+        this.sealersAround = TileEntityOxygenSealer.getSealersAround(world, head.x, head.y, head.z, 1024 * 1024*2);
 
         //If called by a sealer test the head block and if partiallySealable mark its sides done as required
         if (!sealers.isEmpty())

@@ -48,11 +48,11 @@ public class EnergyStorage implements IEnergyStorageGC
 
     public void setCapacity(float capacity)
     {
-        this.capacity = capacity;
+        this.capacity = capacity * 50F;
 
-        if (this.energy > capacity)
+        if (this.energy > capacity * 50F)
         {
-            this.energy = capacity;
+            this.energy = capacity * 50F;
         }
     }
 
@@ -62,7 +62,7 @@ public class EnergyStorage implements IEnergyStorageGC
      */
     public void setMaxReceive(float maxReceive)
     {
-        this.maxReceive = maxReceive;
+        this.maxReceive = maxReceive * 50F;
     }
 
     /*
@@ -79,9 +79,9 @@ public class EnergyStorage implements IEnergyStorageGC
      */
     public void setMaxExtract(float maxExtract)
     {
-        this.maxExtract = maxExtract;
+        this.maxExtract = maxExtract * 50F;
         this.maxExtractRemaining = maxExtract;
-        this.maxReceive = 2.5F * maxExtract;
+        this.maxReceive = 2.5F * 50F * maxExtract;
     }
 
     public void setEnergyStored(float energy)

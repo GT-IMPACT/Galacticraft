@@ -47,7 +47,7 @@ public class TileEntityOxygenSealer extends TileEntityOxygen implements IInvento
     private static int countTemp = 0;
     private static boolean sealerCheckedThisTick = false;
     public static ArrayList<TileEntityOxygenSealer> loadedTiles = new ArrayList();
-    private static final int UNSEALED_OXYGENPERTICK = 12;
+    private static final int UNSEALED_OXYGENPERTICK = 20 * 4 ;
 
 
     public TileEntityOxygenSealer()
@@ -104,7 +104,7 @@ public class TileEntityOxygenSealer extends TileEntityOxygen implements IInvento
             return 0;
         }
 
-        return 1250;
+        return 1000*10;
     }
 
     public boolean thermalControlEnabled()
@@ -141,7 +141,7 @@ public class TileEntityOxygenSealer extends TileEntityOxygen implements IInvento
             }
         }
     	
-		this.oxygenPerTick = this.sealed ? 2 : UNSEALED_OXYGENPERTICK;
+		this.oxygenPerTick = this.sealed ? 2 * 4 : UNSEALED_OXYGENPERTICK;
         super.updateEntity();
         
         if (!this.worldObj.isRemote)
