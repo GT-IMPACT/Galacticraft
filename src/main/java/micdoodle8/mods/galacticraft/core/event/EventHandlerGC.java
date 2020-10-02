@@ -89,6 +89,7 @@ import net.minecraftforge.event.world.ChunkEvent.Load;
 import net.minecraftforge.event.world.WorldEvent.Save;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EventHandlerGC
 {
@@ -119,7 +120,35 @@ public class EventHandlerGC
     @SubscribeEvent
     public void onWorldSave(Save event)
     {
-        ChunkLoadingCallback.save((WorldServer) event.world);
+        //ChunkLoadingCallback.save((WorldServer) event.world);
+        counter.incrementAndGet();
+        if (thread == null) {
+            thread = new SaveThread();
+            thread.start();
+        }
+    }
+
+    public static AtomicInteger counter = new AtomicInteger(0);
+    public static SaveThread thread;
+    public static class SaveThread extends Thread {
+        public SaveThread() {
+            super("GC-SaveThread");
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                if (counter.get() >= 1) {
+                    ChunkLoadingCallback.save(null);
+                    counter.set(0);
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @SubscribeEvent

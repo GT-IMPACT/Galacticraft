@@ -15,15 +15,17 @@ import java.util.List;
 
 public class NetworkRenderer
 {
+    static long t = -1;
+    static List<TileEntityBeamOutput> nodes = new ArrayList<>();
     public static void renderNetworks(World world, float partialTicks)
     {
-        List<TileEntityBeamOutput> nodes = new ArrayList<TileEntityBeamOutput>();
-
-        for (Object o : new ArrayList<TileEntity>(world.loadedTileEntityList))
-        {
-            if (o instanceof TileEntityBeamOutput)
-            {
-                nodes.add((TileEntityBeamOutput) o);
+        if (System.currentTimeMillis() > t + 1000) {
+            t = System.currentTimeMillis();
+            nodes.clear();
+            for (Object o : new ArrayList<TileEntity>(world.loadedTileEntityList)) {
+                if (o instanceof TileEntityBeamOutput) {
+                    nodes.add((TileEntityBeamOutput) o);
+                }
             }
         }
 
