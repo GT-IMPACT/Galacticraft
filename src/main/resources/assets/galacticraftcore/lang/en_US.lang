@@ -3,6 +3,8 @@
 # GENERAL ITEMS
 item.oxygenTankLightFull.name=Light Oxygen Tank
 item.oxygenTankLightEmpty.name=Empty Light Oxygen Tank
+item.oxygenTankt4.name=T4 Oxygen Tank
+item.oxygenTankt5.name=T5 Oxygen Tank
 item.oxygenTankMedFull.name=Medium Oxygen Tank
 item.oxygenTankMedEmpty.name=Empty Medium Oxygen Tank
 item.oxygenTankHeavyFull.name=Heavy Oxygen Tank

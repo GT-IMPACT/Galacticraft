@@ -62,6 +62,8 @@ public class GCItems
     public static Item meteoricIronIngot;
     public static Item bucketOil;
     public static Item bucketFuel;
+    public static Item oxTankt4;
+    public static Item oxTankt5;
 //	public static Item cheeseBlock;
 
     public static ArmorMaterial ARMOR_SENSOR_GLASSES = EnumHelper.addArmorMaterial("SENSORGLASSES", 200, new int[] { 0, 0, 0, 0 }, 0);
@@ -72,7 +74,7 @@ public class GCItems
 
     public static void initItems()
     {
-        GCItems.oxTankLight = new ItemOxygenTank(1, "oxygenTankLightFull");
+        GCItems.oxTankLight = new ItemOxygenTank(1,  "oxygenTankLightFull");
         GCItems.oxTankMedium = new ItemOxygenTank(2, "oxygenTankMedFull");
         GCItems.oxTankHeavy = new ItemOxygenTank(3, "oxygenTankHeavyFull");
         GCItems.oxMask = new ItemOxygenMask("oxygenMask");
@@ -118,6 +120,8 @@ public class GCItems
 //		GCItems.cheeseBlock = new ItemBlockCheese(GCBlocks.cheeseBlock, "cheeseBlock");
         GCItems.meteoricIronRaw = new ItemMeteoricIron("meteoricIronRaw");
         GCItems.meteoricIronIngot = new ItemMoon("meteoricIronIngot");
+        GCItems.oxTankt4 = new ItemOxygenTank(4, "oxygenTankt4");
+        GCItems.oxTankt5 = new ItemOxygenTank(5, "oxygenTankt5");
 
         hiddenItems.add(GCItems.oilExtractor);
 
@@ -126,9 +130,9 @@ public class GCItems
         GCCoreUtil.registerGalacticraftItem("oxygenTankLightFull", GCItems.oxTankLight);
         GCCoreUtil.registerGalacticraftItem("oxygenTankMediumFull", GCItems.oxTankMedium);
         GCCoreUtil.registerGalacticraftItem("oxygenTankHeavyFull", GCItems.oxTankHeavy);
-        GCCoreUtil.registerGalacticraftItem("oxygenTankLightEmpty", GCItems.oxTankLight, 90);
-        GCCoreUtil.registerGalacticraftItem("oxygenTankMediumEmpty", GCItems.oxTankMedium, 180);
-        GCCoreUtil.registerGalacticraftItem("oxygenTankHeavyEmpty", GCItems.oxTankHeavy, 270);
+        GCCoreUtil.registerGalacticraftItem("oxygenTankLightEmpty", GCItems.oxTankLight, 180);
+        GCCoreUtil.registerGalacticraftItem("oxygenTankMediumEmpty", GCItems.oxTankMedium, 360);
+        GCCoreUtil.registerGalacticraftItem("oxygenTankHeavyEmpty", GCItems.oxTankHeavy, 540);
         GCCoreUtil.registerGalacticraftItem("oxygenMask", GCItems.oxMask);
         GCCoreUtil.registerGalacticraftItem("rocketTier1", GCItems.rocketTier1, 0);
         GCCoreUtil.registerGalacticraftItem("rocketTier1_18cargo", GCItems.rocketTier1, 1);
@@ -234,6 +238,11 @@ public class GCItems
         GCCoreUtil.registerGalacticraftItem("meteorThrowableHot", GCItems.meteorChunk, 1);
         GCCoreUtil.registerGalacticraftItem("standardWrench", GCItems.wrench);
 
+        GCCoreUtil.registerGalacticraftItem("oxygenTank4", GCItems.oxTankt4);
+        GCCoreUtil.registerGalacticraftItem("oxygenTank5", GCItems.oxTankt5);
+        GCCoreUtil.registerGalacticraftItem("oxygenTank4Empty", GCItems.oxTankt4, 1080);
+        GCCoreUtil.registerGalacticraftItem("oxygenTank5Empty", GCItems.oxTankt5, 2160);
+
         GCItems.registerItems();
 
         for (int i = 0; i < ItemBasic.names.length; i++)
@@ -304,6 +313,8 @@ public class GCItems
 //		GCItems.registerItem(GCItems.cheeseBlock);
         GCItems.registerItem(GCItems.flag);
         GCItems.registerItem(GCItems.parachute);
+        GCItems.registerItem(GCItems.oxTankt4);
+        GCItems.registerItem(GCItems.oxTankt5);
     }
 
     public static void registerItem(Item item)

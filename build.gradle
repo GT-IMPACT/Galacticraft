@@ -1,12 +1,5 @@
 def versionRev = 505
 
-def gsversion = "1.1.6-GTNH"
-def gsjenkinsbuild = 33
-def micversion = "3.0.15-GTNH"
-def micjenkinsbuild = 2
-def gtversion = "5.09.33.54"
-def gtjenkinsbuild = 682
-
 buildscript {
     repositories {
         mavenCentral()
@@ -52,6 +45,10 @@ configurations {
 	embedded
 	compile.extendsFrom provided, embedded
 }
+def micversion = "3.0.15-GTNH"
+def micjenkinsbuild = 2
+def gtversion = "5.09.33.54"
+def gtjenkinsbuild = 682
 
 repositories {
     maven {
@@ -105,33 +102,14 @@ dependencies {
 
 task getGalaxySpace(type: Download) {
     onlyIf {
-        !file("libs/GalaxySpace-${gsversion}-(${gsjenkinsbuild}).jar").exists()
+        !file("libs/GalaxySpace-1.1.4-impact-dev.jar").exists()
     }
-    src "http://jenkins.usrv.eu:8080/job/Galaxy-Space/${gsjenkinsbuild}/artifact/build/libs/GalaxySpace-${gsversion}.jar"
-    dest file("libs/GalaxySpace-${gsversion}-(${gsjenkinsbuild}).jar")
+    dest file("libs/GalaxySpace-1.1.4-impact-dev.jar")
     mustRunAfter "deobfBinJar"
     mustRunAfter "repackMinecraft"
-    delete fileTree("$projectDir/libs/") {
-        include "GalaxySpace-*.jar"
-        exclude "GalaxySpace-${gsversion}-(${gsjenkinsbuild}).jar"
-    }
 }
 
-task getGregTech(type: Download, dependsOn: "getGalaxySpace") {
-    onlyIf {
-        !file("libs/Gregtech-${gtversion}-(${gtjenkinsbuild}).jar").exists()
-    }
-    src "http://jenkins.usrv.eu:8080/job/Gregtech-5-Unofficial/${gtjenkinsbuild}/artifact/build/libs/gregtech-${gtversion}-dev.jar"
-    dest file("libs/Gregtech-${gtversion}-(${gtjenkinsbuild}).jar")
-    mustRunAfter "deobfBinJar"
-    mustRunAfter "repackMinecraft"
-    delete fileTree("$projectDir/libs/") {
-        include "Gregtech-*.jar"
-        exclude "Gregtech-${gtversion}-(${gtjenkinsbuild}).jar"
-    }
-}
-
-task getMiccdoodleCore(type: Download, dependsOn: "getGregTech") {
+task getMiccdoodleCore(type: Download, dependsOn: "getGalaxySpace") {
 	onlyIf {
 		!file("libs/MiccdoodleCore-${micversion}-(${micjenkinsbuild}).jar").exists()
 	}

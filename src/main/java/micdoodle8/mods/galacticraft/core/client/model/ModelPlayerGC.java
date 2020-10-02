@@ -48,6 +48,8 @@ public class ModelPlayerGC extends ModelBiped
     public ModelRenderer[] greenOxygenTanks = new ModelRenderer[2];
     public ModelRenderer[] orangeOxygenTanks = new ModelRenderer[2];
     public ModelRenderer[] redOxygenTanks = new ModelRenderer[2];
+    public ModelRenderer[] blueOxygenTanks = new ModelRenderer[2];
+    public ModelRenderer[] violetOxygenTanks = new ModelRenderer[2];
     public ModelRenderer oxygenMask;
 
     private boolean usingParachute;
@@ -191,6 +193,24 @@ public class ModelPlayerGC extends ModelBiped
         this.redOxygenTanks[1].setRotationPoint(-2F, 2F, 3.8F);
         this.redOxygenTanks[1].mirror = true;
 
+        this.blueOxygenTanks[0] = new ModelRenderer(this, 40, 0);
+        this.blueOxygenTanks[0].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
+        this.blueOxygenTanks[0].setRotationPoint(2F, 2F, 3.8F);
+        this.blueOxygenTanks[0].mirror = true;
+        this.blueOxygenTanks[1] = new ModelRenderer(this, 40, 0);
+        this.blueOxygenTanks[1].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
+        this.blueOxygenTanks[1].setRotationPoint(-2F, 2F, 3.8F);
+        this.blueOxygenTanks[1].mirror = true;
+
+        this.violetOxygenTanks[0] = new ModelRenderer(this, 52, 0);
+        this.violetOxygenTanks[0].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
+        this.violetOxygenTanks[0].setRotationPoint(2F, 2F, 3.8F);
+        this.violetOxygenTanks[0].mirror = true;
+        this.violetOxygenTanks[1] = new ModelRenderer(this, 52, 0);
+        this.violetOxygenTanks[1].addBox(-1.5F, 0F, -1.5F, 3, 7, 3, var1);
+        this.violetOxygenTanks[1].setRotationPoint(-2F, 2F, 3.8F);
+        this.violetOxygenTanks[1].mirror = true;
+
         this.frequencyModule = AdvancedModelLoader.loadModel(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "models/frequencyModule.obj"));
     }
 
@@ -207,9 +227,13 @@ public class ModelPlayerGC extends ModelBiped
         boolean wearingLeftTankGreen = false;
         boolean wearingLeftTankOrange = false;
         boolean wearingLeftTankRed = false;
+        boolean wearingLeftTankBlue = false;
+        boolean wearingLeftTankViolet = false;
         boolean wearingRightTankGreen = false;
         boolean wearingRightTankOrange = false;
         boolean wearingRightTankRed = false;
+        boolean wearingRightTankBlue = false;
+        boolean wearingRightTankViolet = false;
         boolean wearingFrequencyModule = false;
 
         final EntityPlayer player = (EntityPlayer) var1;
@@ -223,9 +247,13 @@ public class ModelPlayerGC extends ModelBiped
             wearingLeftTankGreen = gearData.getLeftTank() == 0;
             wearingLeftTankOrange = gearData.getLeftTank() == 1;
             wearingLeftTankRed = gearData.getLeftTank() == 2;
+            wearingLeftTankBlue = gearData.getLeftTank() == 3;
+            wearingLeftTankViolet = gearData.getLeftTank() == 4;
             wearingRightTankGreen = gearData.getRightTank() == 0;
             wearingRightTankOrange = gearData.getRightTank() == 1;
             wearingRightTankRed = gearData.getRightTank() == 2;
+            wearingRightTankBlue = gearData.getRightTank() == 3;
+            wearingRightTankViolet = gearData.getRightTank() == 4;
             wearingFrequencyModule = gearData.getFrequencyModule() > -1;
         }
         else
@@ -296,6 +324,20 @@ public class ModelPlayerGC extends ModelBiped
 
                 //
 
+                if (wearingLeftTankViolet)
+                {
+                    this.violetOxygenTanks[0].render(var7);
+                }
+
+                //
+
+                if (wearingLeftTankBlue)
+                {
+                    this.blueOxygenTanks[0].render(var7);
+                }
+
+                //
+
                 if (wearingLeftTankRed)
                 {
                     this.redOxygenTanks[0].render(var7);
@@ -313,6 +355,20 @@ public class ModelPlayerGC extends ModelBiped
                 if (wearingLeftTankGreen)
                 {
                     this.greenOxygenTanks[0].render(var7);
+                }
+
+                //
+
+                if (wearingRightTankViolet)
+                {
+                    this.violetOxygenTanks[0].render(var7);
+                }
+
+                //
+
+                if (wearingRightTankBlue)
+                {
+                    this.blueOxygenTanks[1].render(var7);
                 }
 
                 //
@@ -456,6 +512,18 @@ public class ModelPlayerGC extends ModelBiped
         this.redOxygenTanks[1].rotateAngleX = this.bipedBody.rotateAngleX;
         this.redOxygenTanks[1].rotateAngleY = this.bipedBody.rotateAngleY;
         this.redOxygenTanks[1].rotateAngleZ = this.bipedBody.rotateAngleZ;
+        this.blueOxygenTanks[0].rotateAngleX = this.bipedBody.rotateAngleX;
+        this.blueOxygenTanks[0].rotateAngleY = this.bipedBody.rotateAngleY;
+        this.blueOxygenTanks[0].rotateAngleZ = this.bipedBody.rotateAngleZ;
+        this.blueOxygenTanks[1].rotateAngleX = this.bipedBody.rotateAngleX;
+        this.blueOxygenTanks[1].rotateAngleY = this.bipedBody.rotateAngleY;
+        this.blueOxygenTanks[1].rotateAngleZ = this.bipedBody.rotateAngleZ;
+        this.violetOxygenTanks[0].rotateAngleX = this.bipedBody.rotateAngleX;
+        this.violetOxygenTanks[0].rotateAngleY = this.bipedBody.rotateAngleY;
+        this.violetOxygenTanks[0].rotateAngleZ = this.bipedBody.rotateAngleZ;
+        this.violetOxygenTanks[1].rotateAngleX = this.bipedBody.rotateAngleX;
+        this.violetOxygenTanks[1].rotateAngleY = this.bipedBody.rotateAngleY;
+        this.violetOxygenTanks[1].rotateAngleZ = this.bipedBody.rotateAngleZ;
 
         final List<?> l = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, AxisAlignedBB.getBoundingBox(player.posX - 20, 0, player.posZ - 20, player.posX + 20, 200, player.posZ + 20));
 
