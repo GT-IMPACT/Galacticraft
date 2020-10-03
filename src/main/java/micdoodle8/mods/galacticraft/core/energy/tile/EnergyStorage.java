@@ -80,7 +80,7 @@ public class EnergyStorage implements IEnergyStorageGC
     public void setMaxExtract(float maxExtract)
     {
         this.maxExtract = maxExtract * 50F;
-        this.maxExtractRemaining = maxExtract;
+        this.maxExtractRemaining = maxExtract * 50F;
         this.maxReceive = 2.5F * 50F * maxExtract;
     }
 

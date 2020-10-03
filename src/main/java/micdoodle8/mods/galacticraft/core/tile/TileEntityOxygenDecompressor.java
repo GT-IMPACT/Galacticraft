@@ -1,5 +1,6 @@
 package micdoodle8.mods.galacticraft.core.tile;
 
+import micdoodle8.mods.galacticraft.api.item.IItemOxygenSupply;
 import micdoodle8.mods.galacticraft.core.blocks.BlockOxygenCompressor;
 import micdoodle8.mods.galacticraft.core.energy.item.ItemElectricBase;
 import micdoodle8.mods.galacticraft.core.items.ItemOxygenTank;
@@ -18,12 +19,12 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
 {
     private ItemStack[] containingItems = new ItemStack[2];
 
-    public static final int OUTPUT_PER_TICK = 100;
+    public static final int OUTPUT_PER_TICK = 100*5;
     private boolean usingEnergy = false;
 
     public TileEntityOxygenDecompressor()
     {
-        super(1200, 0);
+        super(50000, 0);
     }
 
     @Override
@@ -38,10 +39,24 @@ public class TileEntityOxygenDecompressor extends TileEntityOxygen implements II
 
             if (tank1 != null && this.hasEnoughEnergyToRun && this.getOxygenStored() < this.getMaxOxygenStored())
             {
-                if (tank1.getItem() instanceof ItemOxygenTank && tank1.getItemDamage() < tank1.getMaxDamage())
-                {
-                    tank1.setItemDamage(tank1.getItemDamage() + 1);
-                    this.receiveOxygen(1, true);
+                if (tank1.getItemDamage() < tank1.getMaxDamage()) {
+                    if(tank1.getItem() instanceof ItemOxygenTank) {
+                        if (tank1.getItemDamage() < tank1.getMaxDamage() - 50) {
+                            tank1.setItemDamage(tank1.getItemDamage() + 50);
+                            this.receiveOxygen(50, true);
+                        } else {
+                            tank1.setItemDamage(tank1.getItemDamage() + 1);
+                            this.receiveOxygen(1, true);
+                        }
+                    } else if (tank1.getItem() instanceof IItemOxygenSupply){
+                        if (tank1.getItemDamage() < tank1.getMaxDamage() - 50) {
+                            tank1.setItemDamage(tank1.getItemDamage() + 50);
+                            this.receiveOxygen(50*10, true);
+                        } else {
+                            tank1.setItemDamage(tank1.getItemDamage() + 1);
+                            this.receiveOxygen(10, true);
+                        }
+                    }
                     this.usingEnergy = true;
                 }
             }

@@ -32,6 +32,8 @@ public class AsteroidsItems
     public static Item titaniumSpade;
     public static Item titaniumHoe;
     public static Item titaniumSword;
+    public static Item canisterLOX2;
+    public static Item canisterLOX3;
 
     public static Item.ToolMaterial TOOL_TITANIUM = EnumHelper.addToolMaterial("titanium", 3, 520, 8.0F, 3.0F, 10);
     public static ItemArmor.ArmorMaterial ARMOR_TITANIUM = EnumHelper.addArmorMaterial("titanium", 26, new int[] { 5, 10, 7, 5 }, 10);
@@ -59,6 +61,8 @@ public class AsteroidsItems
         AsteroidsItems.titaniumSpade = new ItemSpadeAsteroids("titanium_shovel");
         AsteroidsItems.titaniumHoe = new ItemHoeAsteroids("titanium_hoe");
         AsteroidsItems.titaniumSword = new ItemSwordAsteroids("titanium_sword");
+        AsteroidsItems.canisterLOX2 = new ItemCanisterLiquidOxygen2("LOX2");
+        AsteroidsItems.canisterLOX3 = new ItemCanisterLiquidOxygen3("LOX3");
 
         AsteroidsItems.registerItems();
 
@@ -100,9 +104,13 @@ public class AsteroidsItems
         registerItem(AsteroidsItems.titaniumSpade);
         registerItem(AsteroidsItems.titaniumHoe);
         registerItem(AsteroidsItems.titaniumSword);
-        
+        registerItem(AsteroidsItems.canisterLOX2);
+        registerItem(AsteroidsItems.canisterLOX3);
+
         //These exact names are important, ItemCanisterGeneric searches for "CanisterFull"
         GCCoreUtil.registerGalacticraftItem("LOXCanisterFull", AsteroidsItems.canisterLOX, 1);
+        GCCoreUtil.registerGalacticraftItem("LOX2CanisterFull", AsteroidsItems.canisterLOX2, 1);
+        GCCoreUtil.registerGalacticraftItem("LOX3CanisterFull", AsteroidsItems.canisterLOX3, 1);
         GCCoreUtil.registerGalacticraftItem("LN2CanisterFull", AsteroidsItems.canisterLN2, 1);
         GCCoreUtil.registerGalacticraftItem("methaneCanisterFull", AsteroidsItems.methaneCanister, 1);
     }
