@@ -51,10 +51,10 @@ public class NEIGalacticraftConfig implements IConfigureNEI
             }
         }
 
-        API.registerRecipeHandler(new RocketT1RecipeHandler());
-        API.registerUsageHandler(new RocketT1RecipeHandler());
-        API.registerRecipeHandler(new BuggyRecipeHandler());
-        API.registerUsageHandler(new BuggyRecipeHandler());
+//        API.registerRecipeHandler(new RocketT1RecipeHandler());
+//        API.registerUsageHandler(new RocketT1RecipeHandler());
+//        API.registerRecipeHandler(new BuggyRecipeHandler());
+//        API.registerUsageHandler(new BuggyRecipeHandler());
         API.registerRecipeHandler(new RefineryRecipeHandler());
         API.registerUsageHandler(new RefineryRecipeHandler());
         API.registerRecipeHandler(new CircuitFabricatorRecipeHandler());

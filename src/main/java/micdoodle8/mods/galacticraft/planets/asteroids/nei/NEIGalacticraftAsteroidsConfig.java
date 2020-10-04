@@ -28,10 +28,10 @@ public class NEIGalacticraftAsteroidsConfig implements IConfigureNEI
     public void loadConfig()
     {
         this.registerRecipes();
-        API.registerRecipeHandler(new RocketT3RecipeHandler());
-        API.registerUsageHandler(new RocketT3RecipeHandler());
-        API.registerRecipeHandler(new AstroMinerRecipeHandler());
-        API.registerUsageHandler(new AstroMinerRecipeHandler());
+//        API.registerRecipeHandler(new RocketT3RecipeHandler());
+//        API.registerUsageHandler(new RocketT3RecipeHandler());
+//        API.registerRecipeHandler(new AstroMinerRecipeHandler());
+//        API.registerUsageHandler(new AstroMinerRecipeHandler());
         API.registerHighlightIdentifier(AsteroidBlocks.blockBasic, NEIGalacticraftMarsConfig.planetsHighlightHandler);
     }
 

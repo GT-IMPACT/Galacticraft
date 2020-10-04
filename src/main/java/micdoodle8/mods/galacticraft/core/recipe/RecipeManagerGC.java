@@ -141,71 +141,6 @@ public class RecipeManagerGC
         input2.put(17, new ItemStack(Blocks.chest));
         RecipeUtil.addRocketBenchRecipe(new ItemStack(GCItems.rocketTier1, 1, 3), input2);
 
-        //
-
-        input = new HashMap<Integer, ItemStack>();
-        input.put(1, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(2, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(3, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(4, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(5, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(6, new ItemStack(GCItems.partBuggy, 1, 1));
-        input.put(7, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(8, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(9, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(10, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(11, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(12, new ItemStack(GCItems.heavyPlatingTier1));
-        input.put(13, new ItemStack(GCItems.partBuggy));
-        input.put(14, new ItemStack(GCItems.partBuggy));
-        input.put(15, new ItemStack(GCItems.partBuggy));
-        input.put(16, new ItemStack(GCItems.partBuggy));
-        input.put(17, null);
-        input.put(18, null);
-        input.put(19, null);
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 0), input);
-
-        input2 = new HashMap<Integer, ItemStack>(input);
-        input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(18, null);
-        input2.put(19, null);
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 1), input2);
-
-        input2 = new HashMap<Integer, ItemStack>(input);
-        input2.put(17, null);
-        input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(19, null);
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 1), input2);
-
-        input2 = new HashMap<Integer, ItemStack>(input);
-        input2.put(17, null);
-        input2.put(18, null);
-        input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 1), input2);
-
-        input2 = new HashMap<Integer, ItemStack>(input);
-        input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(19, null);
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 2), input2);
-
-        input2 = new HashMap<Integer, ItemStack>(input);
-        input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(18, null);
-        input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 2), input2);
-
-        input2 = new HashMap<Integer, ItemStack>(input);
-        input2.put(17, null);
-        input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 2), input2);
-
-        input2 = new HashMap<Integer, ItemStack>(input);
-        input2.put(17, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(18, new ItemStack(GCItems.partBuggy, 1, 2));
-        input2.put(19, new ItemStack(GCItems.partBuggy, 1, 2));
-        RecipeUtil.addBuggyBenchRecipe(new ItemStack(GCItems.buggy, 1, 3), input2);
 
         aluminumIngots.addAll(OreDictionary.getOres("ingotAluminum"));
     	ArrayList<ItemStack> addedList = new ArrayList<ItemStack>();
@@ -243,13 +178,6 @@ public class RecipeManagerGC
         {	
         	aluminumIngots.addAll(addedList);
         }
-
-        final HashMap<Object, Integer> inputMap = new HashMap<Object, Integer>();
-        inputMap.put("ingotTin", 32);
-        inputMap.put(aluminumIngots, 16);
-        inputMap.put("waferAdvanced", 1);
-        inputMap.put(Items.iron_ingot, 24);
-        GalacticraftRegistry.registerSpaceStation(new SpaceStationType(ConfigManagerCore.idDimensionOverworldOrbit, 0, new SpaceStationRecipe(inputMap)));
 
         RecipeUtil.addRecipe(new ItemStack(GCBlocks.aluminumWire, 6), new Object[] { "WWW", "CCC", "WWW", 'W', Blocks.wool, 'C', "ingotAluminum" });
 

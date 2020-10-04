@@ -29,10 +29,10 @@ public class NEIGalacticraftMarsConfig implements IConfigureNEI
     public void loadConfig()
     {
         this.registerRecipes();
-        API.registerRecipeHandler(new RocketT2RecipeHandler());
-        API.registerUsageHandler(new RocketT2RecipeHandler());
-        API.registerRecipeHandler(new CargoRocketRecipeHandler());
-        API.registerUsageHandler(new CargoRocketRecipeHandler());
+//        API.registerRecipeHandler(new RocketT2RecipeHandler());
+//        API.registerUsageHandler(new RocketT2RecipeHandler());
+//        API.registerRecipeHandler(new CargoRocketRecipeHandler());
+//        API.registerUsageHandler(new CargoRocketRecipeHandler());
         API.registerRecipeHandler(new GasLiquefierRecipeHandler());
         API.registerUsageHandler(new GasLiquefierRecipeHandler());
         API.registerRecipeHandler(new MethaneSynthesizerRecipeHandler());
