@@ -15,12 +15,14 @@ import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.client.CloudRenderer;
+import micdoodle8.mods.galacticraft.core.client.model.ModelRocketTier1;
 import micdoodle8.mods.galacticraft.core.client.render.entities.RenderTier1Rocket;
 import micdoodle8.mods.galacticraft.core.client.render.item.ItemRendererKey;
 import micdoodle8.mods.galacticraft.core.client.render.item.ItemRendererTier1Rocket;
 import micdoodle8.mods.galacticraft.core.client.render.tile.TileEntityBubbleProviderRenderer;
 import micdoodle8.mods.galacticraft.core.entities.EntityTier1Rocket;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
+import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.planets.GuiIdsPlanets;
 import micdoodle8.mods.galacticraft.planets.IPlanetsModuleClient;
 import micdoodle8.mods.galacticraft.planets.asteroids.AsteroidsModule;
@@ -36,6 +38,7 @@ import micdoodle8.mods.galacticraft.planets.mars.client.model.ModelTier2Rocket;
 import micdoodle8.mods.galacticraft.planets.mars.client.render.block.*;
 import micdoodle8.mods.galacticraft.planets.mars.client.render.entity.*;
 import micdoodle8.mods.galacticraft.planets.mars.client.render.item.ItemRendererMachine;
+import micdoodle8.mods.galacticraft.planets.mars.client.render.item.ItemRendererTier2Rocket;
 import micdoodle8.mods.galacticraft.planets.mars.client.render.tile.TileEntityCryogenicChamberRenderer;
 import micdoodle8.mods.galacticraft.planets.mars.client.render.tile.TileEntityTreasureChestRenderer;
 import micdoodle8.mods.galacticraft.planets.mars.dimension.WorldProviderMars;
@@ -106,11 +109,10 @@ public class MarsModuleClient implements IPlanetsModuleClient
 
         IModelCustom rocketModel1 = AdvancedModelLoader.loadModel(new ResourceLocation(MarsModule.ASSET_PREFIX, "models/12216_rocket_v1_l2.obj"));
         RenderingRegistry.registerEntityRenderingHandler(EntityTier2Rocket.class, new RenderTier3Rocket(rocketModel1, MarsModule.ASSET_PREFIX, "tier2rocket"));
-        MinecraftForgeClient.registerItemRenderer(MarsItems.spaceship, new ItemRendererTier1Rocket(rocketModel1, "tier2rocket"));
+        MinecraftForgeClient.registerItemRenderer(MarsItems.spaceship, new ItemRendererTier2Rocket(rocketModel1, "tier2rocket"));
 
-        IModelCustom rocketModel2 = AdvancedModelLoader.loadModel(new ResourceLocation(MarsModule.ASSET_PREFIX, "models/Shuttle3.obj"));
-        RenderingRegistry.registerEntityRenderingHandler(EntityTier1Rocket.class, new RenderTier3Rocket(rocketModel2, MarsModule.ASSET_PREFIX, "tier1rocket"));
-        MinecraftForgeClient.registerItemRenderer(GCItems.rocketTier1, new ItemRendererTier1Rocket(rocketModel2, "tier1rocket"));
+        RenderingRegistry.registerEntityRenderingHandler(EntityTier1Rocket.class, new RenderTier1Rocket(new ModelRocketTier1(), GalacticraftCore.ASSET_PREFIX, "rocketT1"));
+        MinecraftForgeClient.registerItemRenderer(GCItems.rocketTier1, new ItemRendererTier1Rocket(new EntityTier1Rocket(ClientProxyCore.mc.theWorld), new ModelRocketTier1(), new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/model/rocketT1.png")));
 
 
 //        RenderingRegistry.registerEntityRenderingHandler(EntityTerraformBubble.class, new RenderBubble(0.25F, 1.0F, 0.25F));

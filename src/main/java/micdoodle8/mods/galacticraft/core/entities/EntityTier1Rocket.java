@@ -77,11 +77,11 @@ public class EntityTier1Rocket extends EntityTieredRocket {
                 if (this.worldObj.provider instanceof WorldProviderSpace && !((WorldProviderSpace) this.worldObj.provider).hasAtmosphere()) {
                     d = Math.min(d * 1.2, 1.6*4);
                 } else {
-                    d = Math.min(d, 1*4);
+                    d = Math.min(d, 1.2*4);
                 }
 
                 if (d != 0.0) {
-                    this.motionY = -d*4D * Math.cos((this.rotationPitch - 180) * Math.PI / 180.0D);
+                    this.motionY = -d*1.5D*4D  * Math.cos((this.rotationPitch - 180) / 57.2957795D);
                 }
             } else {
                 this.motionY -= 0.008D;
@@ -266,7 +266,7 @@ public class EntityTier1Rocket extends EntityTieredRocket {
 
     @Override
     public int getFuelTankCapacity() {
-        return anInt;
+        return 1000;
     }
 
     @Override
