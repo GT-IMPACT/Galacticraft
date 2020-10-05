@@ -1,6 +1,8 @@
 package micdoodle8.mods.galacticraft.core.inventory;
 
 import micdoodle8.mods.galacticraft.core.items.ItemOilCanister;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterOil2;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterOil3;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -42,7 +44,10 @@ public class SlotRefinery extends Slot
         {
         }
 
-        return par1ItemStack.getItem() instanceof ItemOilCanister && par1ItemStack.getItemDamage() > 0;
+        return (par1ItemStack.getItem() instanceof ItemOilCanister
+                || par1ItemStack.getItem() instanceof ItemCanisterOil2
+                || par1ItemStack.getItem() instanceof ItemCanisterOil3)
+                && par1ItemStack.getItemDamage() > 0;
 
     }
 }

@@ -7,6 +7,9 @@ import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.core.items.ItemCanisterGeneric;
 import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterOil2;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterOil3;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterTierEmpty;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,6 +36,14 @@ public class FluidUtil
 	{
     	if (var4.getItem() instanceof ItemCanisterGeneric)
     		return var4.getItem() == GCItems.fuelCanister && var4.getItemDamage() < var4.getMaxDamage();
+
+		if (var4.getItem() instanceof ItemCanisterOil2)
+			return var4.getItem() == AsteroidsItems.canisterOIL2 && var4.getItemDamage() < var4.getMaxDamage();
+
+		if (var4.getItem() instanceof ItemCanisterOil3)
+			return var4.getItem() == AsteroidsItems.canisterOIL3 && var4.getItemDamage() < var4.getMaxDamage();
+
+
 
     	FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(var4);
         return liquid != null && FluidUtil.testFuel(FluidRegistry.getFluidName(liquid));
@@ -149,9 +160,17 @@ public class FluidUtil
 	{
 		ItemStack slotItem = inventory[slot];
 		boolean isCanister = slotItem.getItem() instanceof ItemCanisterGeneric;
+		boolean isCanister2 = slotItem.getItem() instanceof ItemCanisterOil2;
+		boolean isCanister3 = slotItem.getItem() instanceof ItemCanisterOil3;
 		final int amountToFill = Math.min(liquid.amount, isCanister ? slotItem.getItemDamage() - 1 : FluidContainerRegistry.BUCKET_VOLUME);
+		final int amountToFill2 = Math.min(liquid.amount, isCanister2 ? slotItem.getItemDamage() - 1 : 8000);
+		final int amountToFill3 = Math.min(liquid.amount, isCanister3 ? slotItem.getItemDamage() - 1 : 32000);
 
 		if (amountToFill <= 0 || (isCanister && slotItem.getItem() != canisterType && slotItem.getItemDamage() != ItemCanisterGeneric.EMPTY))
+			return;
+		if (amountToFill2 <= 0 || (isCanister2 && slotItem.getItem() != canisterType && slotItem.getItemDamage() != 8001))
+			return;
+		if (amountToFill3 <= 0 || (isCanister3 && slotItem.getItem() != canisterType && slotItem.getItemDamage() != 32001))
 			return;
 		
 		if (isCanister)
@@ -171,6 +190,46 @@ public class FluidUtil
 			else
 			{
 				tank.drain(amountToFill, true);
+			}
+		}
+
+		if (isCanister2)
+		{
+			inventory[slot] = new ItemStack(canisterType, 1, slotItem.getItemDamage() - amountToFill2);
+			tank.drain(amountToFill2, true);
+		}
+		else if (amountToFill2 == 8000)
+		{
+			inventory[slot] = FluidContainerRegistry.fillFluidContainer(liquid, inventory[slot]);
+
+			if (inventory[slot] == null)
+			{
+				//Failed to fill container: restore item that was there before
+				inventory[slot] = slotItem;
+			}
+			else
+			{
+				tank.drain(amountToFill2, true);
+			}
+		}
+
+		if (isCanister3)
+		{
+			inventory[slot] = new ItemStack(canisterType, 1, slotItem.getItemDamage() - amountToFill3);
+			tank.drain(amountToFill3, true);
+		}
+		else if (amountToFill3 == 32000)
+		{
+			inventory[slot] = FluidContainerRegistry.fillFluidContainer(liquid, inventory[slot]);
+
+			if (inventory[slot] == null)
+			{
+				//Failed to fill container: restore item that was there before
+				inventory[slot] = slotItem;
+			}
+			else
+			{
+				tank.drain(amountToFill3, true);
 			}
 		}
 	}
@@ -209,6 +268,8 @@ public class FluidUtil
 					}
 					
 					FluidUtil.tryFillContainer(tank, liquid, inventory, slot, GCItems.fuelCanister);
+					FluidUtil.tryFillContainer(tank, liquid, inventory, slot, AsteroidsItems.canisterOIL2);
+					FluidUtil.tryFillContainer(tank, liquid, inventory, slot, AsteroidsItems.canisterOIL3);
 				}
 			}
 		}
@@ -228,6 +289,12 @@ public class FluidUtil
 	{
     	if (var4.getItem() instanceof ItemCanisterGeneric)
     		return var4.getItemDamage() == ItemCanisterGeneric.EMPTY || (var4.getItem() == canisterType && var4.getItemDamage() > 1);
+
+		if (var4.getItem() instanceof ItemCanisterOil2)
+			return var4.getItemDamage() == 80001 || (var4.getItem() == canisterType && var4.getItemDamage() > 1);
+
+		if (var4.getItem() instanceof ItemCanisterOil3)
+			return var4.getItemDamage() == 32001 || (var4.getItem() == canisterType && var4.getItemDamage() > 1);
 				
 		return FluidContainerRegistry.isEmptyContainer(var4);
 	}
@@ -237,7 +304,7 @@ public class FluidUtil
 	 * Either Galacticraft canisters or Forge containers
 	 * 
 	 * @param var4
-	 * @param canisterType
+	 * @param targetFluid
 	 * @return
 	 */
     public static boolean isEmptyContainerFor(ItemStack var4, FluidStack targetFluid)
@@ -249,6 +316,22 @@ public class FluidUtil
     		
     		return fluidsSame(((ItemCanisterGeneric)var4.getItem()).getFluid(var4), targetFluid);
     	}
+
+		if (var4.getItem() instanceof ItemCanisterOil2)
+		{
+			if (var4.getItemDamage() == 8001) return true;
+			if (var4.getItemDamage() == 1) return false;
+
+			return fluidsSame(((ItemCanisterGeneric)var4.getItem()).getFluid(var4), targetFluid);
+		}
+
+		if (var4.getItem() instanceof ItemCanisterOil3)
+		{
+			if (var4.getItemDamage() == 32001) return true;
+			if (var4.getItemDamage() == 1) return false;
+
+			return fluidsSame(((ItemCanisterGeneric)var4.getItem()).getFluid(var4), targetFluid);
+		}
 				
 		if (FluidContainerRegistry.isEmptyContainer(var4)) return true;
 		
@@ -281,7 +364,14 @@ public class FluidUtil
 	{
     	if (var4.getItem() instanceof ItemCanisterGeneric)
     		return var4.getItemDamage() == ItemCanisterGeneric.EMPTY;
-				
+
+		if (var4.getItem() instanceof ItemCanisterOil2)
+			return var4.getItemDamage() == 8001;
+
+		if (var4.getItem() instanceof ItemCanisterOil3)
+			return var4.getItemDamage() == 32001;
+
+
 		return FluidContainerRegistry.isEmptyContainer(var4);
 	}
 
@@ -306,6 +396,13 @@ public class FluidUtil
 	{
     	if (var4.getItem() instanceof ItemCanisterGeneric)
     		return var4.getItemDamage() < ItemCanisterGeneric.EMPTY;
+
+		if (var4.getItem() instanceof ItemCanisterOil2)
+			return var4.getItemDamage() < 8001;
+
+		if (var4.getItem() instanceof ItemCanisterOil3)
+			return var4.getItemDamage() < 32001;
+
         return FluidContainerRegistry.getFluidForFilledItem(var4) != null;
 	}
 
@@ -329,13 +426,13 @@ public class FluidUtil
 	 */
 	public static boolean isValidContainer(ItemStack slotItem)
 	{
-		return slotItem != null && slotItem.stackSize == 1 && (slotItem.getItem() instanceof ItemCanisterGeneric || FluidContainerRegistry.isContainer(slotItem));
+		return slotItem != null && slotItem.stackSize == 1 && (slotItem.getItem() instanceof ItemCanisterGeneric || slotItem.getItem() instanceof ItemCanisterTierEmpty || FluidContainerRegistry.isContainer(slotItem));
 	}
 
 	/**
 	 * Returns the used (empty) container, for example an empty bucket
 	 * Used, for example, in isItemValidForSlot() logic
-	 * @param slotItem
+	 * @param container
 	 * @return  True if it is a container; False if it is null or not a container 
 	 */
 	public static ItemStack getUsedContainer(ItemStack container)

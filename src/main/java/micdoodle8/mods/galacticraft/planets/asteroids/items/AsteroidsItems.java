@@ -34,6 +34,8 @@ public class AsteroidsItems
     public static Item titaniumSword;
     public static Item canisterLOX2;
     public static Item canisterLOX3;
+    public static Item canisterOIL2;
+    public static Item canisterOIL3;
 
     public static Item.ToolMaterial TOOL_TITANIUM = EnumHelper.addToolMaterial("titanium", 3, 520, 8.0F, 3.0F, 10);
     public static ItemArmor.ArmorMaterial ARMOR_TITANIUM = EnumHelper.addArmorMaterial("titanium", 26, new int[] { 5, 10, 7, 5 }, 10);
@@ -63,6 +65,8 @@ public class AsteroidsItems
         AsteroidsItems.titaniumSword = new ItemSwordAsteroids("titanium_sword");
         AsteroidsItems.canisterLOX2 = new ItemCanisterLiquidOxygen2("LOX2");
         AsteroidsItems.canisterLOX3 = new ItemCanisterLiquidOxygen3("LOX3");
+        AsteroidsItems.canisterOIL2 = new ItemCanisterOil2("OIL2");
+        AsteroidsItems.canisterOIL3 = new ItemCanisterOil3("OIL3");
 
         AsteroidsItems.registerItems();
 
@@ -106,11 +110,15 @@ public class AsteroidsItems
         registerItem(AsteroidsItems.titaniumSword);
         registerItem(AsteroidsItems.canisterLOX2);
         registerItem(AsteroidsItems.canisterLOX3);
+        registerItem(AsteroidsItems.canisterOIL2);
+        registerItem(AsteroidsItems.canisterOIL3);
 
         //These exact names are important, ItemCanisterGeneric searches for "CanisterFull"
         GCCoreUtil.registerGalacticraftItem("LOXCanisterFull", AsteroidsItems.canisterLOX, 1);
         GCCoreUtil.registerGalacticraftItem("LOX2CanisterFull", AsteroidsItems.canisterLOX2, 1);
         GCCoreUtil.registerGalacticraftItem("LOX3CanisterFull", AsteroidsItems.canisterLOX3, 1);
+        GCCoreUtil.registerGalacticraftItem("LOX3CanisterFull", AsteroidsItems.canisterOIL2, 1);
+        GCCoreUtil.registerGalacticraftItem("LOX3CanisterFull", AsteroidsItems.canisterOIL3, 1);
         GCCoreUtil.registerGalacticraftItem("LN2CanisterFull", AsteroidsItems.canisterLN2, 1);
         GCCoreUtil.registerGalacticraftItem("methaneCanisterFull", AsteroidsItems.methaneCanister, 1);
     }

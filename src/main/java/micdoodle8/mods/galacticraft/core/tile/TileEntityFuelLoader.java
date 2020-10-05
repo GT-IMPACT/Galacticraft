@@ -11,6 +11,8 @@ import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.core.items.ItemCanisterGeneric;
 import micdoodle8.mods.galacticraft.core.util.FluidUtil;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.AsteroidsItems;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterTierEmpty;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
@@ -23,7 +25,7 @@ import net.minecraftforge.fluids.*;
 
 public class TileEntityFuelLoader extends TileBaseElectricBlockWithInventory implements ISidedInventory, IFluidHandler, ILandingPadAttachable
 {
-    private final int tankCapacity = 12000;
+    private final int tankCapacity = 50000;
     @NetworkedField(targetSide = Side.CLIENT)
     public FluidTank fuelTank = new FluidTank(this.tankCapacity);
     private ItemStack[] containingItems = new ItemStack[2];
@@ -64,7 +66,27 @@ public class TileEntityFuelLoader extends TileBaseElectricBlockWithInventory imp
 	                	else
 	                		this.containingItems[1] = new ItemStack(GCItems.fuelCanister, 1, originalDamage + used);
 	                }
-            	}
+            	} else if (this.containingItems[1].getItem() instanceof ItemCanisterTierEmpty)
+                {
+                    if (this.containingItems[1].getItem() == AsteroidsItems.canisterOIL2)
+                    {
+                        int originalDamage = this.containingItems[1].getItemDamage();
+                        int used = this.fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, 8001 - originalDamage), true);
+                        if (originalDamage + used == 8001)
+                            this.containingItems[1] = new ItemStack(AsteroidsItems.canisterLOX2, 1, 8001);
+                        else
+                            this.containingItems[1] = new ItemStack(AsteroidsItems.canisterOIL2, 1, originalDamage + used);
+                    }
+                    if (this.containingItems[1].getItem() == AsteroidsItems.canisterOIL3)
+                    {
+                        int originalDamage = this.containingItems[1].getItemDamage();
+                        int used = this.fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, 32001 - originalDamage), true);
+                        if (originalDamage + used == 32001)
+                            this.containingItems[1] = new ItemStack(AsteroidsItems.canisterLOX3, 1, 32001);
+                        else
+                            this.containingItems[1] = new ItemStack(AsteroidsItems.canisterOIL3, 1, originalDamage + used);
+                    }
+                }
                 else
                 {
                 	final FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(this.containingItems[1]);

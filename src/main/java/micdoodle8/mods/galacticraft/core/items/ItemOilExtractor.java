@@ -7,6 +7,8 @@ import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterOil2;
+import micdoodle8.mods.galacticraft.planets.asteroids.items.ItemCanisterOil3;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -116,7 +118,10 @@ public class ItemOilExtractor extends Item
     {
         for (final ItemStack stack : player.inventory.mainInventory)
         {
-            if (stack != null && stack.getItem() instanceof ItemOilCanister)
+            if (stack != null &&
+                    (stack.getItem() instanceof ItemOilCanister
+                    || stack.getItem() instanceof ItemCanisterOil2
+                    || stack.getItem() instanceof ItemCanisterOil3))
             {
                 if (stack.getMaxDamage() - stack.getItemDamage() >= 0 && stack.getMaxDamage() - stack.getItemDamage() < GCItems.oilCanister.getMaxDamage() - 1)
                 {
