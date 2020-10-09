@@ -30,7 +30,7 @@ public class ItemCanisterOil3 extends ItemCanisterTierEmpty {
     public ItemCanisterOil3(String assetName) {
         super(assetName, 32000);
         this.mPreCapacity = 32000;
-        this.setAllowedFluid(ConfigManagerCore.useOldOilFluidID ? "oilgc" : "oil");
+        this.setAllowedFluid(ConfigManagerCore.useOldFuelFluidID ? "fuelgc" : "fuel");
         this.setTextureName(AsteroidsModule.TEXTURE_PREFIX + "canisterLOX/" + assetName);
         this.setContainerItem(AsteroidsItems.canisterLOX3);
     }
@@ -54,10 +54,10 @@ public class ItemCanisterOil3 extends ItemCanisterTierEmpty {
         }
 
         if (itemStack.getItemDamage() == 1) {
-            return "item.canister.OIL3.full";
+            return "item.canister.fuel3.full";
         }
 
-        return "item.canister.OIL3.partial";
+        return "item.canister.fuel3.partial";
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -83,7 +83,7 @@ public class ItemCanisterOil3 extends ItemCanisterTierEmpty {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         if (this.mPreCapacity + 1 - par1ItemStack.getItemDamage() > 0) {
-            par3List.add(GCCoreUtil.translate("gui.message.oil.name") + ": " + (this.mPreCapacity + 1 - par1ItemStack.getItemDamage()));
+            par3List.add(GCCoreUtil.translate("gui.message.fuel.name") + ": " + (this.mPreCapacity + 1 - par1ItemStack.getItemDamage()));
         }
     }
 
