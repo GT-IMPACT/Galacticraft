@@ -1,4 +1,4 @@
-def versionRev = 505
+def versionRev = 506
 
 buildscript {
     repositories {
