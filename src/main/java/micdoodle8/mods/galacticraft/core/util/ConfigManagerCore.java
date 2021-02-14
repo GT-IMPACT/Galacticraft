@@ -415,7 +415,7 @@ public class ConfigManagerCore
             propOrder.add(prop.getName());
 
             prop = config.get(Constants.CONFIG_CATEGORY_GENERAL, "Space Stations Require Permission", true);
-            prop.comment = "While true, space stations require you to invite other players using /ssinvite <playername>";
+            prop.comment = "While true, space stations require you to invite other players using /invitess <playername>";
             prop.setLanguageKey("gc.configgui.spaceStationsRequirePermission");
             spaceStationsRequirePermission = prop.getBoolean(true);
             propOrder.add(prop.getName());

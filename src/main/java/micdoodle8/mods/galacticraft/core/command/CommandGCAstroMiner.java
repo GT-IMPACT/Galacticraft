@@ -67,7 +67,7 @@ public class CommandGCAstroMiner extends CommandBase
     	}
     	if (astring.length < 1)
     	{
-            throw new WrongUsageException(GCCoreUtil.translateWithFormat("commands.ssinvite.wrongUsage", this.getCommandUsage(icommandsender)), new Object[0]);
+            throw new WrongUsageException(GCCoreUtil.translateWithFormat("commands.invitess.wrongUsage", this.getCommandUsage(icommandsender)), new Object[0]);
     	}
     	
     	int type = 0;

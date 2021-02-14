@@ -97,7 +97,7 @@ public class CommandSpaceStationChangeOwner extends CommandBase
         }
         else
         {
-            throw new WrongUsageException(GCCoreUtil.translateWithFormat("commands.ssinvite.wrongUsage", this.getCommandUsage(icommandsender)), new Object[0]);
+            throw new WrongUsageException(GCCoreUtil.translateWithFormat("commands.invitess.wrongUsage", this.getCommandUsage(icommandsender)), new Object[0]);
         }
 
         if (playerAdmin != null)

@@ -38,7 +38,7 @@ public class CommandSpaceStationAddOwner extends CommandBase
     @Override
     public String getCommandName()
     {
-        return "ssinvite";
+        return "invitess";
     }
 
     @Override
@@ -61,7 +61,7 @@ public class CommandSpaceStationAddOwner extends CommandBase
 
                     if (stats.spaceStationDimensionData.isEmpty())
                     {
-                        throw new WrongUsageException(GCCoreUtil.translate("commands.ssinvite.notFound"), new Object[0]);
+                        throw new WrongUsageException(GCCoreUtil.translate("commands.invitess.notFound"));
                     }
                     else
                     {
@@ -106,7 +106,7 @@ public class CommandSpaceStationAddOwner extends CommandBase
         }
         else
         {
-            throw new WrongUsageException(GCCoreUtil.translateWithFormat("commands.ssinvite.wrongUsage", this.getCommandUsage(icommandsender)), new Object[0]);
+            throw new WrongUsageException(GCCoreUtil.translateWithFormat("commands.invitess.wrongUsage", this.getCommandUsage(icommandsender)), new Object[0]);
         }
 
         if (playerBase != null)
